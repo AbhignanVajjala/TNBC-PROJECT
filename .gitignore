@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Build / IDE
+dist/
+build/
+.idea/
+.vscode/
+*.tsbuildinfo
+
+# Archives & large raw artifacts (not tracked)
+*.zip
+
+# Environment (keep .env.example templates)
+.env
+*.env
+!*.env.example
+
+# OS
+.DS_Store
+Thumbs.db

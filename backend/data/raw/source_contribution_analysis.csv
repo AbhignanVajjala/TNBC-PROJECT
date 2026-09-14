@@ -1,0 +1,7 @@
+variant,spearman_vs_full_TPS,n_pairs
+AFS_only,0.4,200
+PS_only,0.523,151
+SS_only,0.793,64
+AFS_PS,0.691,200
+AFS_SS,0.75,200
+PS_SS,0.818,176

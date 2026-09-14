@@ -1,0 +1,201 @@
+interaction_id,target_no,group,protein,receptor,structure_filename,structure_source,model_type,structure_format,available
+T1_ANXA2,1,1,ANXA2,TROP2 / TACSTD2,1Test1_NINTH_f8991_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_LGALS3BP,1,2,LGALS3BP,TROP2 / TACSTD2,1Test2_ad417_2_1Test2_ad417_2_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_SDCBP,1,3,SDCBP,TROP2 / TACSTD2,1Test3_476af_1Test3_476af_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_FN1,1,4,FN1,TROP2 / TACSTD2,fold_1_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T1_MFGE8,1,5,MFGE8,TROP2 / TACSTD2,1test5_be13f_1test5_be13f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_GAPDH,1,6,GAPDH,TROP2 / TACSTD2,1test6_SIXTH_b0b40_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_LDHA,1,7,LDHA,TROP2 / TACSTD2,1test7_4472a_1test7_4472a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_PGK1,1,8,PGK1,TROP2 / TACSTD2,1test8_f363a_1test8_f363a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_ALDOA,1,9,ALDOA,TROP2 / TACSTD2,1test9_fbeca_1test9_fbeca_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T1_ENO1,1,10,ENO1,TROP2 / TACSTD2,1test10_a76c9_1test10_a76c9_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_ANXA2,2,1,ANXA2,EGFR,2test1_83a14_0_2test1_83a14_0_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_LGALS3BP,2,2,LGALS3BP,EGFR,2test2_i_2test2_9bd1a_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_FN1,2,3,FN1,EGFR,fold_2_test_3_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T2_MFGE8,2,4,MFGE8,EGFR,2test4_dac3e_2test4_dac3e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_SDCBP,2,5,SDCBP,EGFR,2test5_3708b_2test5_3708b_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_GAPDH,2,6,GAPDH,EGFR,2test6_1beba_2test6_1beba_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_LDHA,2,7,LDHA,EGFR,2test7_17612_2test2_17612_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_PKM,2,8,PKM,EGFR,2test8_d652b_2test8_d652b_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_TPI1,2,9,TPI1,EGFR,2test9_b4167_2test9_b4167_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T2_PGK1,2,10,PGK1,EGFR,2test10_36f13_2test10_36f13_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_ANXA2,3,1,ANXA2,EpCAM / EPCAM,3test1_7134c_3test1_7134c_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_LGALS3BP,3,2,LGALS3BP,EpCAM / EPCAM,3test2_39c22_3test2_39c22_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_SDCBP,3,3,SDCBP,EpCAM / EPCAM,3test3_8a498_3test3_8a498_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_FN1,3,4,FN1,EpCAM / EPCAM,fold_3_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T3_CD44,3,5,CD44,EpCAM / EPCAM,3test5_d669d_3test5_d669d_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_GAPDH,3,6,GAPDH,EpCAM / EPCAM,3test6_59a5d_3test1_59a5d_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_ALDOA,3,7,ALDOA,EpCAM / EPCAM,3test7_a6a73_3test2_a6a73_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_ENO1,3,8,ENO1,EpCAM / EPCAM,3test8_15c6b_3test3_15c6b_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_EEF1A1,3,9,EEF1A1,EpCAM / EPCAM,3test9_39ebb_3test4_39ebb_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T3_PKM,3,10,PKM,EpCAM / EPCAM,3test10_98d26_3test10_98d26_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_FN1,4,1,FN1,Tissue Factor / F3,fold_4_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T4_THBS1,4,2,THBS1,Tissue Factor / F3,4test2_cc785_4test2_cc785_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_ANXA2,4,3,ANXA2,Tissue Factor / F3,4test3_6c156_4test3_6c156_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_MFGE8,4,4,MFGE8,Tissue Factor / F3,4test4_781cc_4test4_781cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_LGALS3BP,4,5,LGALS3BP,Tissue Factor / F3,4test5_51d44_4test5_51d44_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_GAPDH,4,6,GAPDH,Tissue Factor / F3,4test6_277c6_4test6_277c6_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_LDHA,4,7,LDHA,Tissue Factor / F3,4test7_17fd5_4test7_17fd5_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_PGK1,4,8,PGK1,Tissue Factor / F3,4test8_6f6c6_4test8_6f6c6_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_TPI1,4,9,TPI1,Tissue Factor / F3,4test9_520d0_4test9_520d0_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T4_ALDOA,4,10,ALDOA,Tissue Factor / F3,4test10_bef88_4test10_bef88_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_ITGB1,5,1,ITGB1,ICAM1 / CD54,5test1_04348_5test1_04348_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_ITGA6,5,2,ITGA6,ICAM1 / CD54,5test2_b4664_5test2_b4664_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_FN1,5,3,FN1,ICAM1 / CD54,fold_5_test_3_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T5_MFGE8,5,4,MFGE8,ICAM1 / CD54,5test4_4397c_5test4_4397c_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_THBS1,5,5,THBS1,ICAM1 / CD54,5test5_57f8a_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_GAPDH,5,6,GAPDH,ICAM1 / CD54,5test6_32dd8_5test6_32dd8_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_LDHA,5,7,LDHA,ICAM1 / CD54,5test7_892fe_5test7_892fe_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_ENO1,5,8,ENO1,ICAM1 / CD54,5test8_5189e_5test7_5189e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_PKM,5,9,PKM,ICAM1 / CD54,5test9_9cf30_5test9_9cf30_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T5_TKT,5,10,TKT,ICAM1 / CD54,5test10_b7ff1_5test10_b7ff1_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T6_FN1,6,1,FN1,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_MFGE8,6,2,MFGE8,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_2_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_THBS1,6,3,THBS1,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_3_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_ITGB1,6,4,ITGB1,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_ITGA6,6,5,ITGA6,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_5_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_GAPDH,6,6,GAPDH,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_6_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_PGK1,6,7,PGK1,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_7_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_ALDOA,6,8,ALDOA,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_8_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_LDHA,6,9,LDHA,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_9_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T6_ENO1,6,10,ENO1,αvβ3 integrin / ITGAV–ITGB3,fold_6_test_10_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_LGALS3BP,7,1,LGALS3BP,MUC1,fold_7_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_ANXA2,7,2,ANXA2,MUC1,fold_7_test_2_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_FN1,7,3,FN1,MUC1,fold_7_test_3_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_MFGE8,7,4,MFGE8,MUC1,fold_7_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_THBS1,7,5,THBS1,MUC1,fold_7_test_5_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_GAPDH,7,6,GAPDH,MUC1,fold_7_test_6_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_PKM,7,7,PKM,MUC1,fold_7_test_7_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_TPI1,7,8,TPI1,MUC1,fold_7_test_8_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_PGK1,7,9,PGK1,MUC1,fold_7_test_9_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T7_EEF1A1,7,10,EEF1A1,MUC1,fold_7_test_10_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T8_SLC3A2,8,1,SLC3A2,GLUT5 / SLC2A5,8test1_66cf5_8test1_66cf5_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_BSG,8,2,BSG,GLUT5 / SLC2A5,8test2_e3633_8test2_e3633_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_ANXA2,8,3,ANXA2,GLUT5 / SLC2A5,8test3_afd7e_8test3_afd7e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_LGALS3BP,8,4,LGALS3BP,GLUT5 / SLC2A5,8test4_c6867_8test4_c6867_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_SDCBP,8,5,SDCBP,GLUT5 / SLC2A5,8test5_490d7_8test5_490d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_GAPDH,8,6,GAPDH,GLUT5 / SLC2A5,8test6_99385_8test6_99385_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_LDHA,8,7,LDHA,GLUT5 / SLC2A5,8test7_3aafc_8test7_3aafc_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_ALDOA,8,8,ALDOA,GLUT5 / SLC2A5,8test8_6990c_8test8_6990c_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_PGK1,8,9,PGK1,GLUT5 / SLC2A5,8test9_2e9fb_8test9_2e9fb_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T8_ENO1,8,10,ENO1,GLUT5 / SLC2A5,8test10_5bc17_8test10_5bc17_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_FN1,9,1,FN1,TEM8 / ANTXR1,fold_9_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T9_ITGB1,9,2,ITGB1,TEM8 / ANTXR1,9test2_7ad84_9test2_7ad84_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_MFGE8,9,3,MFGE8,TEM8 / ANTXR1,9test3_2d186_9test3_2d186_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_THBS1,9,4,THBS1,TEM8 / ANTXR1,9test4_8adaa_9test4_8adaa_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_ANXA2,9,5,ANXA2,TEM8 / ANTXR1,9test5_0172f_9test5_0172f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_GAPDH,9,6,GAPDH,TEM8 / ANTXR1,9test6_6d063_9test6_6d063_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_LDHA,9,7,LDHA,TEM8 / ANTXR1,9test7_a296b_9test7_a296b_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_PKM,9,8,PKM,TEM8 / ANTXR1,9test8_d33a3_9test8_d33a3_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_TPI1,9,9,TPI1,TEM8 / ANTXR1,9test9_a8a4e_9test9_a8a4e_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T9_ALDOA,9,10,ALDOA,TEM8 / ANTXR1,9test10_777fd_9test10_777fd_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_LGALS3BP,10,1,LGALS3BP,GPNMB,10test1_ccd96_10test1_ccd96_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_FN1,10,2,FN1,GPNMB,fold_10_test_2_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T10_THBS1,10,3,THBS1,GPNMB,10test3_9d73f_10test3_9d73f_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_MFGE8,10,4,MFGE8,GPNMB,10test4_28835_10test4_28835_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_ANXA2,10,5,ANXA2,GPNMB,10test5_f9793_10test5_f9793_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_GAPDH,10,6,GAPDH,GPNMB,10test6_11d53_10test6_11d53_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_PGK1,10,7,PGK1,GPNMB,10test7_664d4_10test7_664d4_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_ALDOA,10,8,ALDOA,GPNMB,10test8_8aa23_10test8_8aa23_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_ENO1,10,9,ENO1,GPNMB,10test9_f09e2_10test9_f09e2_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T10_TKT,10,10,TKT,GPNMB,10test10_945cb_10test10_945cb_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_SLC3A2,11,1,SLC3A2,LIV-1 / SLC39A6,11test1_c2ace_11test1_c2ace_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_BSG,11,2,BSG,LIV-1 / SLC39A6,11test2_9b6ce_11test2_9b6ce_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_ANXA2,11,3,ANXA2,LIV-1 / SLC39A6,11test3_63996_11test3_63996_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_LGALS3BP,11,4,LGALS3BP,LIV-1 / SLC39A6,11test4_57979_11test4_57979_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_SDCBP,11,5,SDCBP,LIV-1 / SLC39A6,11test5_5db39_11test5_5db39_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_GAPDH,11,6,GAPDH,LIV-1 / SLC39A6,11test6_a9f0f_11test6_a9f0f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_LDHA,11,7,LDHA,LIV-1 / SLC39A6,11test7_349c0_11test7_349c0_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_PGK1,11,8,PGK1,LIV-1 / SLC39A6,11test8_fe110_11test8_fe110_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_ALDOA,11,9,ALDOA,LIV-1 / SLC39A6,11test9_e8f24_11test9_e8f24_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T11_PKM,11,10,PKM,LIV-1 / SLC39A6,11test10_54970_11test10_54970_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_LGALS3BP,12,1,LGALS3BP,PD-L1 / CD274,12test1_b88c4_12test1_b88c4_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_ANXA2,12,2,ANXA2,PD-L1 / CD274,12test2_e246f_12test2_e246f_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_SDCBP,12,3,SDCBP,PD-L1 / CD274,12test3_7e79b_12test3_7e79b_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_FN1,12,4,FN1,PD-L1 / CD274,fold_12_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T12_MFGE8,12,5,MFGE8,PD-L1 / CD274,12test5_33bb9_12test5_33bb9_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_GAPDH,12,6,GAPDH,PD-L1 / CD274,12test6_f7efe_12test6_f7efe_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_ENO1,12,7,ENO1,PD-L1 / CD274,12test7_6d53e_12test7_6d53e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_LDHA,12,8,LDHA,PD-L1 / CD274,12test8_702df_12test8_702df_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_PGK1,12,9,PGK1,PD-L1 / CD274,12test9_6596c_12test9_6596c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T12_TPI1,12,10,TPI1,PD-L1 / CD274,12test10_756c3_12test10_756c3_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_FN1,13,1,FN1,CD44,fold_13_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T13_ITGB1,13,2,ITGB1,CD44,13test2_d640d_13test2_d640d_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_MFGE8,13,3,MFGE8,CD44,13test3_a4f41_0_13test3_a4f41_0_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_THBS1,13,4,THBS1,CD44,13test4_7fd83_13test4_7fd83_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_LGALS3BP,13,5,LGALS3BP,CD44,13test5_d1264_13test5_d1264_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_GAPDH,13,6,GAPDH,CD44,13test6_d4ff5_13test6_d4ff5_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_LDHA,13,7,LDHA,CD44,13test7_b5c47_13test7_b5c47_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_ALDOA,13,8,ALDOA,CD44,13test8_75b70_13test8_75b70_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_ENO1,13,9,ENO1,CD44,13test9_1e5b1_13test9_1e5b1_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T13_PKM,13,10,PKM,CD44,13test10_2929f_13test10_2929f_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_FN1,14,1,FN1,AXL,fold_14_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T14_ITGB1,14,2,ITGB1,AXL,14test2_139fa_14test2_139fa_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_ANXA2,14,3,ANXA2,AXL,14test3_26378_14test3_26378_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_MFGE8,14,4,MFGE8,AXL,14test4_4db59_14test4_4db59_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_LGALS3BP,14,5,LGALS3BP,AXL,14test5_247ae_14test5_247ae_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_GAPDH,14,6,GAPDH,AXL,14test6_bbc73_14test6_bbc73_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_PGK1,14,7,PGK1,AXL,14test7_4eaa7_14test7_4eaa7_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_LDHA,14,8,LDHA,AXL,14test8_b9b28_14test8_b9b28_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_TPI1,14,9,TPI1,AXL,14test9_8cd73_14test9_8cd73_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T14_ALDOA,14,10,ALDOA,AXL,14test10_df5b5_14test10_df5b5_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_FN1,15,1,FN1,MET / c-MET,fold_15_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T15_ITGB1,15,2,ITGB1,MET / c-MET,15test2_6a86e_15test2_6a86e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_ANXA2,15,3,ANXA2,MET / c-MET,15test3_e2c35_15test3_e2c35_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_LGALS3BP,15,4,LGALS3BP,MET / c-MET,15test4_d2595_15test4_d2595_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_HSP90AA1,15,5,HSP90AA1,MET / c-MET,15test5_2b2cc_15test5_2b2cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_GAPDH,15,6,GAPDH,MET / c-MET,15test6_d35f9_15test6_d35f9_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_LDHA,15,7,LDHA,MET / c-MET,15test7_53f6e_15test7_53f6e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_PGK1,15,8,PGK1,MET / c-MET,15test8_f2452_15test8_f2452_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_ALDOA,15,9,ALDOA,MET / c-MET,15test9_fb6bf_15test9_fb6bf_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T15_ENO1,15,10,ENO1,MET / c-MET,15test10_fb6bf_15test10_fb6bf_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_FN1,16,1,FN1,ROR1,fold_16_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T16_ITGB1,16,2,ITGB1,ROR1,16test2_ff310_16test1_ff310_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_ANXA2,16,3,ANXA2,ROR1,16test3_6ce2c_16test3_6ce2c_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_LGALS3BP,16,4,LGALS3BP,ROR1,16test4_b1f18_16test4_b1f18_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_MFGE8,16,5,MFGE8,ROR1,16test5_ecbd8_16test5_ecbd8_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_GAPDH,16,6,GAPDH,ROR1,16test6_f3a2e_16test6_f3a2e_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_LDHA,16,7,LDHA,ROR1,16test7_d605a_16test7_d605a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_PKM,16,8,PKM,ROR1,16test8_e7f5e_16test8_e7f5e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_PGK1,16,9,PGK1,ROR1,16test9_95ab3_16test9_95ab3_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T16_TPI1,16,10,TPI1,ROR1,16test10_5684e_16test10_5684e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_FN1,17,1,FN1,RON / MST1R,fold_17_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T17_ITGB1,17,2,ITGB1,RON / MST1R,17test2_782cd_17test2_782cd_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_ANXA2,17,3,ANXA2,RON / MST1R,17test3_c549a_17test3_c549a_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_MFGE8,17,4,MFGE8,RON / MST1R,17test4_3110d_17test4_3110d_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_THBS1,17,5,THBS1,RON / MST1R,17test5_49319_17test5_49319_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_GAPDH,17,6,GAPDH,RON / MST1R,17test6_1a01f_17test6_1a01f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_ALDOA,17,7,ALDOA,RON / MST1R,17test7_53cf7_17test7_53cf7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_LDHA,17,8,LDHA,RON / MST1R,17test8_a0913_17test8_a0913_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_ENO1,17,9,ENO1,RON / MST1R,17test9_dd199_17test9_dd199_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T17_TKT,17,10,TKT,RON / MST1R,17test10_0b797_17test10_0b797_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T18_FN1,18,1,FN1,CSPG4,fold_18_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_THBS1,18,2,THBS1,CSPG4,fold_18_test_2_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_MFGE8,18,3,MFGE8,CSPG4,fold_18_test_3_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_ITGB1,18,4,ITGB1,CSPG4,fold_18_test_4_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_LGALS3BP,18,5,LGALS3BP,CSPG4,fold_18_test_5_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_GAPDH,18,6,GAPDH,CSPG4,fold_18_test_6_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_LDHA,18,7,LDHA,CSPG4,fold_18_test_7_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_PGK1,18,8,PGK1,CSPG4,fold_18_test_8_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_PKM,18,9,PKM,CSPG4,fold_18_test_9_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T18_ALDOA,18,10,ALDOA,CSPG4,fold_18_test_10_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T19_FN1,19,1,FN1,IGF1R,fold_19_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T19_ITGB1,19,2,ITGB1,IGF1R,19test2_db433_19test2_db433_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_ANXA2,19,3,ANXA2,IGF1R,19test3_ae4e8_19test3_ae4e8_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_MFGE8,19,4,MFGE8,IGF1R,19test4_4625c_19test4_4625c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_LGALS3BP,19,5,LGALS3BP,IGF1R,19test5_7183e_19test5_7183e_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_GAPDH,19,6,GAPDH,IGF1R,19test6_89cd0_19test6_89cd0_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_ENO1,19,7,ENO1,IGF1R,19test7_00e4d_19test7_00e4d_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_LDHA,19,8,LDHA,IGF1R,19test8_006cc_19test8_006cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_PGK1,19,9,PGK1,IGF1R,19test9_c9465_19test9_c9465_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T19_TPI1,19,10,TPI1,IGF1R,19test10_6c97f_19test10_6c97f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_FN1,20,1,FN1,CXCR4,fold_20_test_1_model_0.pdb,AlphaFold3,alphafold3,pdb,True
+T20_LGALS3BP,20,2,LGALS3BP,CXCR4,20test2_422a2_20test2_422a2_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_ANXA2,20,3,ANXA2,CXCR4,20test3_630ac_20test3_630ac_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_MFGE8,20,4,MFGE8,CXCR4,20test4_8ac1e_20test4_8ac1e_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_ITGB1,20,5,ITGB1,CXCR4,20test5_2adde_20test5_2adde_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_GAPDH,20,6,GAPDH,CXCR4,20test6_785d7_20test6_785d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_LDHA,20,7,LDHA,CXCR4,20test7_1668c_20test7_1668c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_PKM,20,8,PKM,CXCR4,20test8_785d7_20test8_785d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_ALDOA,20,9,ALDOA,CXCR4,20test9_690d7_20test9_690d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True
+T20_ENO1,20,10,ENO1,CXCR4,20test10_eaff4_20test10_eaff4_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb,ColabFold (AlphaFold2-Multimer),alphafold2_multimer_v3,pdb,True

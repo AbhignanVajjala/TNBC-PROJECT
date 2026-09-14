@@ -1,0 +1,1733 @@
+{
+  "name": "EXO-RANK backend data bundle",
+  "generated_by": "scripts/build_manifest.py",
+  "counts": {
+    "data_files": 15,
+    "structures": 200,
+    "total": 215
+  },
+  "data_files": [
+    {
+      "file": "processed/structure_index.csv",
+      "type": "index",
+      "required": true,
+      "size_bytes": 32986,
+      "sha256": "e4d80cd261853a9d9aa6e0e1148325a6dcb63d1b95538894b4eaa323ab644232",
+      "description": "interaction_id -> structure filename mapping"
+    },
+    {
+      "file": "raw/ALPHAFOLD DATA.xlsx",
+      "type": "alphafold",
+      "required": true,
+      "size_bytes": 19690,
+      "sha256": "aac5a1cdf75d81dd31ac155b41d471f0d20e17d5ed0a0281705bfa15ad51200e",
+      "description": "Raw AlphaFold metrics: ipTM, pTM, pLDDT, PAE"
+    },
+    {
+      "file": "raw/alphafold_normalized.csv",
+      "type": "alphafold",
+      "required": false,
+      "size_bytes": 31608,
+      "sha256": "dca5500829f5aa0334e4a3367e334eaa4777a38bd7df13de7bc84721ea887ea2",
+      "description": "Normalized AlphaFold features"
+    },
+    {
+      "file": "raw/biological_feasibility_score.csv",
+      "type": "biology",
+      "required": true,
+      "size_bytes": 11755,
+      "sha256": "e4466bd88746a32eede6b62f64fa0f54baa0ef449ed6dc5ae760640679f8fa03",
+      "description": "Biological feasibility BS flag + localization per candidate"
+    },
+    {
+      "file": "raw/candidate_summary.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 855,
+      "sha256": "0fd9691c623586baa4e3a78c290d5f443fcfbfead03c2944d191f87c65492ca3",
+      "description": "Per-candidate summary"
+    },
+    {
+      "file": "raw/final_experimental_panel.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 1634,
+      "sha256": "e4059917344019bbdafc285b8b006c3ba6aaca71a8d50d9e14e1cd9c79694dc2",
+      "description": "Recommended experimental panel"
+    },
+    {
+      "file": "raw/final_preferred_shortlist.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 26014,
+      "sha256": "fa192572414377436d7e28b50c141f4aa65a48008c3f40842e4f6bc74746f209",
+      "description": "121-pair preferred shortlist"
+    },
+    {
+      "file": "raw/final_rank_stability.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 8805,
+      "sha256": "f07c533051fdcc8815cad4c93fb90714a7eb203387807739210a6dd7cc8e1f55",
+      "description": "Rank stability across weightings"
+    },
+    {
+      "file": "raw/final_score_calculation.csv",
+      "type": "scores",
+      "required": true,
+      "size_bytes": 20550,
+      "sha256": "de1921ff294b8e4987e44c5308452de7f39b844b9cff0b061a6489a726e18fd6",
+      "description": "Final locked scores per pair: AFS, PS, SS, TPS, Coverage, Rank, BS_flag"
+    },
+    {
+      "file": "raw/interface_pae.csv",
+      "type": "alphafold",
+      "required": true,
+      "size_bytes": 14392,
+      "sha256": "d90f0ac62992a8fee475eb03b1937d88abd929c597fadb33c4f41cc187081fdb",
+      "description": "Interface PAE per pair"
+    },
+    {
+      "file": "raw/prodig_v1_parsed.xlsx",
+      "type": "prodigy",
+      "required": true,
+      "size_bytes": 8200,
+      "sha256": "d48e204d73170f0caca7f6cbfff633ecc250b74d792ddfef37577e8cf5d5e4ad",
+      "description": "PRODIGY predicted \u0394G / Kd per pair"
+    },
+    {
+      "file": "raw/PRODIGY INFO.xlsx",
+      "type": "prodigy",
+      "required": true,
+      "size_bytes": 17929,
+      "sha256": "e2fdcf0f554fd095fb59254eab5cf20ef7c176d3ccd99a72b2f8bfda398f032e",
+      "description": "PRODIGY contacts + NIS per pair"
+    },
+    {
+      "file": "raw/receptor_top_candidates.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 1241,
+      "sha256": "0f2ad96288b7aec2ffcd43415632397ebe569a8049edf1a199f370db227a6b19",
+      "description": "Top candidates per receptor"
+    },
+    {
+      "file": "raw/source_contribution_analysis.csv",
+      "type": "report",
+      "required": false,
+      "size_bytes": 145,
+      "sha256": "442680cc5632aa572d64cd4cb46b948a09fb1d081ca732f750b6e7617233d5ae",
+      "description": "Leave-one-source-out analysis"
+    },
+    {
+      "file": "raw/string_score.csv",
+      "type": "string",
+      "required": true,
+      "size_bytes": 9881,
+      "sha256": "23fd2f47f94d94ce512b875fe5b4b48f83a5889f3aaf0c24eccb446902240c26",
+      "description": "STRING channels + combined score (SS) per pair"
+    }
+  ],
+  "structures": [
+    {
+      "file": "structures/10test10_945cb_10test10_945cb_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 691173,
+      "sha256": "f3f3da914d08968bdaf27765190c356c235dba331403d2bf1c325f2cf20f601e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test1_ccd96_10test1_ccd96_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 665901,
+      "sha256": "148ab2d47d3c61f3afc41c4bc6cf871f9a05c0e365e212c32a24d7aa647261d2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test3_9d73f_10test3_9d73f_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1026837,
+      "sha256": "5a309d1a607d4c7f23f4c571dba111f93867360d796ca873c1afa27f0aeadb63",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test4_28835_10test4_28835_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 537840,
+      "sha256": "2187267f3845030ed6afcbf40002126dbf03980bb85e028ea20597bb95006aab",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test5_f9793_10test5_f9793_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 524232,
+      "sha256": "9b0051475a809a3f419039f6ece61c77a071cfa8d3118aebc2ccc36cb9355e7e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test6_11d53_10test6_11d53_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 510138,
+      "sha256": "e24d8d2a48837100643f65574c7849c020bf3430b5767b81a8bc38b09cefa4d3",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test7_664d4_10test7_664d4_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 557928,
+      "sha256": "db0ec53ef850e3f08d2279783dd9c85b4d25e53732574fedb932d1cdfe013300",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test8_8aa23_10test8_8aa23_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 529335,
+      "sha256": "c0ac1a5738c42166090cc51fa72e8a4ca0544cd6dd6cd7a46e11e9df13296d07",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/10test9_f09e2_10test9_f09e2_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 573318,
+      "sha256": "4a8835deef9514d6c953313f1cee9ce7f3674f4be7256b5333f3870db199d623",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test10_54970_11test10_54970_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 522207,
+      "sha256": "b3f12e65a773211eb0e9199740afd66a09e7a94e70336f9044d9639ac829e066",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test1_c2ace_11test1_c2ace_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 461457,
+      "sha256": "a3df8b03f82f7e8694db9147359de0ee31f8256062c069be0bc595e76572234f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test2_9b6ce_11test2_9b6ce_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 382563,
+      "sha256": "a9055635cd6d28e9e3fcde21e7b73847d251329f85c50e6767f89bb9213d3cd2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test3_63996_11test3_63996_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 412776,
+      "sha256": "5a01f6f8f4b7e7ce8adba099f4dc5701db406ff6a245b1838426d25ef3faf971",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test4_57979_11test4_57979_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 554445,
+      "sha256": "72b7d410a39ef0ad7cf2d945d008e4c805859a16841aa63852852dd72256da27",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test5_5db39_11test5_5db39_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 377703,
+      "sha256": "954de405bbfcc60332ce38e056086c56c6d8bea281aef41f930b9c7754ab9f73",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test6_a9f0f_11test6_a9f0f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 398682,
+      "sha256": "f4bad3739e1ca279a574a91d0f614907fb3be1388d70fca385340482e35eb03e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test7_349c0_11test7_349c0_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 402003,
+      "sha256": "adccc007d137d5a54e5dc33e3adcdc26f68919cc31c80deea46ada3c8d416cb9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test8_fe110_11test8_fe110_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 446472,
+      "sha256": "a0af09477a0b7b1399d668f0e142737101ca72767e231415a478c43a55e18d22",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/11test9_e8f24_11test9_e8f24_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 417879,
+      "sha256": "33838b15b437b8464f281492da0dff34680c79ca6e32dfadc06bd18642ba405c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test10_756c3_12test10_756c3_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 295812,
+      "sha256": "1dda366730c49ebcc87d7a63d65e3ea5f058ae2f12e2c3f8869c507bc8e27b73",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test1_b88c4_12test1_b88c4_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 504954,
+      "sha256": "80005d28be5933023273ef627494e5e6570b3ac091067fc046f2a4261201d282",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test2_e246f_12test2_e246f_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 363285,
+      "sha256": "5ff4affb10d9c15b02d39cde9cff496d76c69dead8788562aaeb926a79045b3e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test3_7e79b_12test3_7e79b_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 328212,
+      "sha256": "c2aa9d1dc8c03e2c27c2e05ee81cf538c6626eb80c33e5d0b4b83de510b72d87",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test5_33bb9_12test5_33bb9_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 377298,
+      "sha256": "eaefd6b98ad073f53591d31826363a1fde934689e39664d7bd10c6661154f2ad",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test6_f7efe_12test6_f7efe_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 349191,
+      "sha256": "ccc12822e04ebcbbe22e078c730f1f7a6172bc5a2188d89106f8bfca014ccff0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test7_6d53e_12test7_6d53e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 412371,
+      "sha256": "061fa6d0c2fa936f86be9e27b6ec229b528082e0959acfa88ea68875a10df791",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test8_702df_12test8_702df_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 352512,
+      "sha256": "661848dd09a1e3e376202b2b1dc4b48346189b62bf140e7c4d2f040bc5ca5364",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/12test9_6596c_12test9_6596c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 396981,
+      "sha256": "06366bf4552bef0fd09ab713fc31339ca152652aabda0f2bf1b1b0ee9efb929a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test10_2929f_13test10_2929f_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 485352,
+      "sha256": "c78112c4368d68f7175558bb5a61806ff6f6af106a51db180508e334d92666fe",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test2_d640d_13test2_d640d_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 597537,
+      "sha256": "99328723dfe4ba1db4d604725a85cfca3f415d1df601c25933a08b3ab74a54ef",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test3_a4f41_0_13test3_a4f41_0_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 389934,
+      "sha256": "680306776d21d3a58835159434a98fe3373b4823d6d2bf0a3a6c9cd9a07c1361",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test4_7fd83_13test4_7fd83_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 878526,
+      "sha256": "f5936a22a7164ab871fe77e96726f8b92627032616abbbb823a1e8fd9fce0b3d",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test5_d1264_13test5_d1264_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 517590,
+      "sha256": "5a9e92ac37a52030cde397a06724132d326ac5dd845b001c80c943b1cfec4115",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test6_d4ff5_13test6_d4ff5_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 361827,
+      "sha256": "3067c56903c84e7287320abf9c39667c857e4ae7fe1da2364e00e463afa147b5",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test7_b5c47_13test7_b5c47_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 365148,
+      "sha256": "23792ec2c7a00516aa3aaa8b196d240c98e70530be454bbbc42388bad30922eb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test8_75b70_13test8_75b70_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 381024,
+      "sha256": "212176359c1637bc808f487a1ac2a9bc873715f15f90cbee9e3da747f224dc7c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/13test9_1e5b1_13test9_1e5b1_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 425007,
+      "sha256": "c01535d9d7fd0c39aaae5237cd54a90820879fd2294f1263ab6120bc88441665",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test10_df5b5_14test10_df5b5_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 486486,
+      "sha256": "2a1d97a57d8d423aef432f831c1e1a2aced3925ca392369e39b344f30a874450",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test2_139fa_14test2_139fa_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 702999,
+      "sha256": "2da44cf888a2af382d7abce43e13ac3e1ec815f4e126db6c64c23ef1954bf87f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test3_26378_14test3_26378_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 481383,
+      "sha256": "0139c0bf4d3f180f39c6fd74e6bc126297db121df2450f9316f5c51e716efb4d",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test4_4db59_14test4_4db59_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 494991,
+      "sha256": "bca329f6ffbda9dfd91e0ba0f5a173460c11877f1103f674ee1d83ba270fcfd1",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test5_247ae_14test5_247ae_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 623052,
+      "sha256": "3937aaa6d24aaff35e2bbcad4c7cc72b72aa82b506b82034de099a53c0c5f304",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test6_bbc73_14test6_bbc73_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 467289,
+      "sha256": "b065c8385515bd3f5413aca774b54cf279a102860d436c75139e65b5fa2703ac",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test7_4eaa7_14test7_4eaa7_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 515079,
+      "sha256": "e0ad7cb8b14880c9c9831f3e89709767cd8caf551bd9c50f6485e503804ffa95",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test8_b9b28_14test8_b9b28_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 470610,
+      "sha256": "fa8f031cb93aabc9321e7d9b341e4df62a6807664a123b94c8ccc0b0c958e339",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/14test9_8cd73_14test9_8cd73_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 413910,
+      "sha256": "480511602113492b50dc83b36f5c970e82c6ae8576d37f1854a7dd7fb97bddd0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test10_fb6bf_15test10_fb6bf_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 802629,
+      "sha256": "a6a2c60fe2ee3e46381c05848c0a02fe9a8d214afaa91a071a707a96c3444099",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test2_6a86e_15test2_6a86e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1019142,
+      "sha256": "fc16aa7c047f5198fc9bc06363bde8736f6723864ef96113054850dce95c59e1",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test3_e2c35_15test3_e2c35_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 797526,
+      "sha256": "84b2d95bcc5276cdcbad32d06e8cdb2dbf17d9e5e9ab854fc5a23967dc85338b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test4_d2595_15test4_d2595_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 939195,
+      "sha256": "4e5f938295a9f69fe7fd6245f97a2496da8791ac9208dc166c1e94bb022e8b42",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test5_2b2cc_15test5_2b2cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1059399,
+      "sha256": "849f733ad13f703931d95e8aef2d7e678106ae3d2151e682aa54c1853151ea82",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test6_d35f9_15test6_d35f9_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 783432,
+      "sha256": "47ba5e96dee3005235e13cda97f59d63cb452178eabd513793041867ecf316f0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test7_53f6e_15test7_53f6e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 786753,
+      "sha256": "9b660c996c637f90580f9c3645d56697f1d91a73d1cb5a92c28b04b7cd5628c9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test8_f2452_15test8_f2452_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 831222,
+      "sha256": "19d6f46167744b91a417801ba5183324c5668d1d5bc73f1858ada9100fa65406",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/15test9_fb6bf_15test9_fb6bf_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 802629,
+      "sha256": "7e51f9963667e3fe6ea6fe481372b967c5d05088128051a6c3d8b4716f4a57d0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test10_5684e_16test10_5684e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 392526,
+      "sha256": "f5c3a01259d0ef6ea07a7abd5a885483307600b4fae266a83a6ab73259beace9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test2_ff310_16test1_ff310_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 681615,
+      "sha256": "ab188ea9e51b6ee595abccd90d1d95e50dbbbdbb285985861e05ca2121138056",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test3_6ce2c_16test3_6ce2c_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 459999,
+      "sha256": "5d813477ff28340f3ee2ff25209fd52baa8a8045985618adc3947776c8be27fb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test4_b1f18_16test4_b1f18_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 601668,
+      "sha256": "de8a755ed75d87f0fce51e9b26ffb7d253d08072b020afac7639fa649218f82a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test5_ecbd8_16test5_ecbd8_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 473607,
+      "sha256": "2190ae9a26ad79ffdd7342a1fb5e970f9cd518af399d95faad2dab9416370586",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test6_f3a2e_16test6_f3a2e_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 445905,
+      "sha256": "8ba45d5a858ddf04c9645e7a66aa906d760f5d04f2bd641512b06e60adc88958",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test7_d605a_16test7_d605a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 449226,
+      "sha256": "6da743d96edfc7b0c2b6e57bf4a7f0461dc864ccb23a3d3b36f319d707a2cea3",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test8_e7f5e_16test8_e7f5e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 569430,
+      "sha256": "1bcf5e44c9938368e315cad067e0fc144eeef482dafa973d9382fe769b5396b6",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/16test9_95ab3_16test9_95ab3_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 493695,
+      "sha256": "6a0ea5e92e3d0a6944b21e8b4a5de982d5474765812b7273320f70b1e8f3d5b0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test10_0b797_17test10_0b797_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 953289,
+      "sha256": "5b46c2af6f4a076b9b08879283525f05d83980809c1de94c99540ffce9c37367",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test2_782cd_17test2_782cd_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 775089,
+      "sha256": "21321cc4bfd6a2b35beea7de7aa6669449bb7e902fd4fa3f3a46c7abac257a7e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test3_c549a_17test3_c549a_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 786348,
+      "sha256": "1c3d86120a52d8fa90b4760a306223a81aad69e12264da1f6a834b5e41b8e0fb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test4_3110d_17test4_3110d_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 799956,
+      "sha256": "40463a753de5d82eb966ffeb6a52b595c98a2fce0dafb1602479847e2d67c912",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test5_49319_17test5_49319_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1056078,
+      "sha256": "6db0a2892d5e25a026d3b24a39c71921cc2c6c47aa1b0de041b34d04c393356f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test6_1a01f_17test6_1a01f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 772254,
+      "sha256": "7a75e0dfbb178dc714e81723755df4786911dfda8c933f2e962132e0aa97f686",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test7_53cf7_17test7_53cf7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 791451,
+      "sha256": "6bc517c3da608081ae781b4e53450b8d3dbc80a043cc25595fe12858afebfd5e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test8_a0913_17test8_a0913_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 775575,
+      "sha256": "ee4fdb0f40f4558ff8171aeaf093e96ba9a4d74ef3886968a25c735585448d1f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/17test9_dd199_17test9_dd199_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 835434,
+      "sha256": "8b5acb1819891bee603cc10ec2c2faf248274ad35cff6e4b3deae592ca7d86d0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test10_6c97f_19test10_6c97f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 739125,
+      "sha256": "29474848ffe92b119fd6e3d0a0f07a07ccc5f2798d6ffcdce2d7315db24d9cf5",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test2_db433_19test2_db433_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1028214,
+      "sha256": "2faedf44a1911914d663884e75632975fa40f0687736c706e16623a29337a574",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test3_ae4e8_19test3_ae4e8_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 806598,
+      "sha256": "33503d80dd8692832684f96ab83926328410753f8f3beedc29e1aaadb7a31ac9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test4_4625c_19test4_4625c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 820206,
+      "sha256": "1b2aaa14484a6707d44fe8b7d481c4c18529f1c858face5b8a6fd4f4578ff39a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test5_7183e_19test5_7183e_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 948267,
+      "sha256": "5ba73ed8771bdeda4bcf3213d7d59cc31856dbdfdaaa0b7ceea69d0fab65d7f4",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test6_89cd0_19test6_89cd0_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 792504,
+      "sha256": "bb21d6aa15a5c1eb0a02a7e286b491a942a58b019ae5d90f1865edcfac336906",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test7_00e4d_19test7_00e4d_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 855684,
+      "sha256": "12264fb76e0425e33d0a6c63bcde3107ca0383c6fb46926bccd5d94428548d93",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test8_006cc_19test8_006cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 795825,
+      "sha256": "7e87dadb061c4a608ebc28fbc144cc37e85a1c7b144cff93a76aff44b25e21d8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/19test9_c9465_19test9_c9465_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 840294,
+      "sha256": "d2549f47fb4abc54aca435c6149eccb65437db62a41e44fa912a3147f36dd550",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test10_a76c9_1test10_a76c9_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 287550,
+      "sha256": "09c6d58cc0297426a7bc5a9c6f0051e68698ba01ef21d3a00b90a704d5c77fa6",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1Test1_NINTH_f8991_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 238464,
+      "sha256": "a721437b07e1d3fb50fdaee349339465e27fea1edc7d5e7836d57963046ad7f9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1Test2_ad417_2_1Test2_ad417_2_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 531117,
+      "sha256": "335fdc9b40d0e078d52871f5e0e5093fff1aba733469c5d30de83dd2c8016ba2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1Test3_476af_1Test3_476af_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 203391,
+      "sha256": "6315fe0d0818443542d1275a61e8b17d59349a1512f4bfca094f7150c41f3881",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test5_be13f_1test5_be13f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 404271,
+      "sha256": "fafbf4164cc5f815d8d5587c24a28b0524d129746de237f8db3df26bfc375346",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test6_SIXTH_b0b40_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 224370,
+      "sha256": "dba68edb648a4a94585535d523530a68bf1ad2203724a2a81977f30124171cbe",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test7_4472a_1test7_4472a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 227691,
+      "sha256": "21855fe69c545e1b81a56e71e4fe65c030ed4d70fddcfe7fe2086a709503b03a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test8_f363a_1test8_f363a_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 272160,
+      "sha256": "ca15ec9c443b0396264f20c0dd861f9c7f384cb4219249d14891363c46b9e435",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/1test9_fbeca_1test9_fbeca_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 243567,
+      "sha256": "1ddce904b91016fddd280bd9436c7449107c2781f2418f1d705128b3f3c8f1a0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test10_eaff4_20test10_eaff4_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 496044,
+      "sha256": "c7db2ad61c5e33fe690c6d12e560c9915fc28adc80ba6db9dd5895000ecd03f0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test2_422a2_20test2_422a2_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 588627,
+      "sha256": "4a934a3bcec7569ffdfe3e165248d8c8650440f7308f2d10764bbe15b3309a24",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test3_630ac_20test3_630ac_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 446958,
+      "sha256": "6fad202251330df9a77a40229af332bf69423a511bced5157988ca23b21c6aa4",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test4_8ac1e_20test4_8ac1e_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 460566,
+      "sha256": "a06abd45ffed4ca7c3536bfe566c6635ec0b71c8a9d6ba61848de4ddb64f8347",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test5_2adde_20test5_2adde_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 668574,
+      "sha256": "49e6af8452c31cfca4e9b0e1c4575a74952807263418b290cbb1d1f9cc663190",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test6_785d7_20test6_785d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 432864,
+      "sha256": "206a7dd0b812a666888b403ed06748c99057f8dad0881e0fac69d664b0133122",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test7_1668c_20test7_1668c_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 436185,
+      "sha256": "4c69b8482eb8826a99dc7cd06f206a4dc1663344c60d8eede6ec78096ad9fbb2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test8_785d7_20test8_785d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 432864,
+      "sha256": "ef780ccdff20b47a57ce89a0e7e4ce863511210509c7090c3b9abdecf2632ffb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/20test9_690d7_20test9_690d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 452061,
+      "sha256": "43e6c7531bc50532f4ac3b6fdfa5051b82a76b6e84a7f9f531587e8747e73ae8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test10_36f13_2test10_36f13_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 639981,
+      "sha256": "c7c7284edbe6a57fc5d6c44507adf5e7d5eecf2e1cc8c9a3b7d4e34c814ad97b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test1_83a14_0_2test1_83a14_0_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 606285,
+      "sha256": "626e30444e91555e9f42c9dd391d0bb4dd8d5e982badc23788df125608044974",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test2_i_2test2_9bd1a_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 759780,
+      "sha256": "74ea060a45e9b8f0c444f843bc5ae6bac560f5d96cb09a2a65a4ed1515ca86fe",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test4_dac3e_2test4_dac3e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 619893,
+      "sha256": "8e410c82ff6db1046ba25458c821f45463a0149b20e25cf76e21345a2ef0e64f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test5_3708b_2test5_3708b_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 571212,
+      "sha256": "7a296ce2aa75bf654ce7e34ff37545ac46687a29f940ba76f769042429e877af",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test6_1beba_2test6_1beba_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 592191,
+      "sha256": "ad5624f474c6292d5c60a1663bdcce752c7541afab877b02a77f843e7c68e7cb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test7_17612_2test2_17612_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 595512,
+      "sha256": "2cfd91107811ad6be9169ac479660bd2de0c5790349ae9ce4b2d636d5dd023d7",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test8_d652b_2test8_d652b_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 715716,
+      "sha256": "439ba217354d4cf6a1302b2404801f8c0b75920ea7e20b3e56291ff721905248",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/2test9_b4167_2test9_b4167_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 538812,
+      "sha256": "c4e077f3040e6ca6b8d73b6cc9831ca63c69bc0b189504aeea829ba9270cf1ac",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test10_98d26_3test10_98d26_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 484137,
+      "sha256": "648b2444c78c4eaa56269e79d8481e39f7b2c6a6e61f6887ffa0469a5e549b9c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test1_7134c_3test1_7134c_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 374706,
+      "sha256": "dc748af3e0f5dde2e64054c072a3027e4a02825cf5372a42774e35c6a04144de",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test2_39c22_3test2_39c22_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 516375,
+      "sha256": "2d4f238d2857144ac91a81e032228984a68a48998f7fa62a5cd19f59101f2879",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test3_8a498_3test3_8a498_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 339633,
+      "sha256": "5585724ea9534e4f7ef9fb3cfc6a33c7ab5d44181bfe90e3012fe1850ddf178b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test5_d669d_3test5_d669d_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 549180,
+      "sha256": "aca33eea17a434a31cf54c7532ec4df896ebd1e13742aad5f1de9bbc923a27f1",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test6_59a5d_3test1_59a5d_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 360612,
+      "sha256": "223629b4625ecb9291754818ec98643a684eaad2d7c28bbd8a25d1c1354b76a9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test7_a6a73_3test2_a6a73_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 379809,
+      "sha256": "ec7c40a7c6f184a529e03602325dd9d41bf8e3a8c0c189288796a3ea2fa515ff",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test8_15c6b_3test3_15c6b_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 423792,
+      "sha256": "2693fe07291bcdf8f8712f97d7f777d26ebcedab00d3766a9d8ab6edddc1d52c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/3test9_39ebb_3test4_39ebb_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 440640,
+      "sha256": "23886b52050745a38900ad40f0d8f510385c18e7f5dab0fba3e6d2a332b30664",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test10_bef88_4test10_bef88_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 366363,
+      "sha256": "9ae8b131946175e519b2872fbae81d7f256b4598661f9c8b418a23c52dbb594a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test2_cc785_4test2_cc785_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 863865,
+      "sha256": "e111a388d8b1b5f71264895f1e53ad5dd484c3c6af39e25bf6bdcb57cf84d46d",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test3_6c156_4test3_6c156_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 361260,
+      "sha256": "b672ea83f3ea61a79a17ee6d511083c8255e54581c13bd12afa808e3e776ed8f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test4_781cc_4test4_781cc_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 388314,
+      "sha256": "5ea4d2b45a92212358248cb115202c87ca5f56ee0f77df3b2130fefec158311f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test5_51d44_4test5_51d44_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 502929,
+      "sha256": "41e78dfc08e2a1ecf5e6038f65a99b59e4d7a891bf8dd82900893349e2e7a605",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test6_277c6_4test6_277c6_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 347166,
+      "sha256": "be9aaede9dae437e70cb7a18ce7d3b7cc267d621b4528febbf80fec04e73c6d0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test7_17fd5_4test7_17fd5_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 350487,
+      "sha256": "e24ec6fd7ffc492ab093c05ba5f4aeb8e33283484742d44d4f7d264d6da51f47",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test8_6f6c6_4test8_6f6c6_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 394956,
+      "sha256": "7e7cef174f5d8195d854557b2b2c84f7299631517e2cc724c1a87ca1a4341ae2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/4test9_520d0_4test9_520d0_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 293787,
+      "sha256": "41343927f8871b7179f1964adb4570d5505407dd6dcf26011148e103f23e5b30",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test10_b7ff1_5test10_b7ff1_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 668088,
+      "sha256": "ccb935ca99337bcdea547ea2f889102da3d04fb7a914be76d06dbd7ebb1d5906",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test1_04348_5test1_04348_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 722763,
+      "sha256": "f7cb370032085ac045b5b37d073139acf0f999a53dfbdbec3e0e2897d8671682",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test2_b4664_5test2_b4664_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 913194,
+      "sha256": "976a6ee9f70371e99dd97cb3b566095e7c499f87c67c7baf68ea5cf76b11e98e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test4_4397c_5test4_4397c_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 514755,
+      "sha256": "09adac4d6b8c7616b567db28915dc75b5cf2ecd9a4ab284b25a7f27046bdc7ae",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test5_57f8a_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1003752,
+      "sha256": "85cd05fec966688b584584b5e8e6d1c78ce73b4911c2f7bf8a82a56c7268237a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test6_32dd8_5test6_32dd8_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 487053,
+      "sha256": "85737701d4b9f1674ec5cb1c7ccf82520c6852b509f9b3b3074f1f9b1697fddf",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test7_892fe_5test7_892fe_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 490374,
+      "sha256": "6810df9474ee5ac1c601f1f588b4ae4fac8f9a78107309eb961fcadaed1d8036",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test8_5189e_5test7_5189e_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 550233,
+      "sha256": "f62e6edd57447105e225207acc3521e757f2c2d955a3eb6a3de7a316ffb8ef8e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/5test9_9cf30_5test9_9cf30_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 610578,
+      "sha256": "b67e4cb8a848d9b3204ca3ebdcc5237fe68b6dcb0e1d99feed166f45f6a2e831",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test10_5bc17_8test10_5bc17_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 582633,
+      "sha256": "2ffbcd144b4ad6d03dd674ff62c276873016f429c870b203bd64c55ff52a92d5",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test1_66cf5_8test1_66cf5_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 580365,
+      "sha256": "4c216f369c7ba06aa9e70e955bddf91085d2adb231beb2cb8b89a43bae2c12b1",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test2_e3633_8test2_e3633_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 503739,
+      "sha256": "6c386fe45020a0c56130fd543750bc972ae4ae0518cb5856e71255344988db65",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test3_afd7e_8test3_afd7e_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 533547,
+      "sha256": "6f5e428524308c7e29a9fbe9dc051142938dfea9c7bfe9bf4ba965a2a1f5725f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test4_c6867_8test4_c6867_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 675216,
+      "sha256": "10fa1adf45418b23c0e9ecb312e02987ae7aadb3f01f9293a3cbfe2a46e8985d",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test5_490d7_8test5_490d7_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 498474,
+      "sha256": "1ff7f64cb633a73a2479af03d366ad7c1bc5c8797f98b832d9d8c6c818493744",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test6_99385_8test6_99385_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 519453,
+      "sha256": "2ef81f293f9592157b2198a2d902c88e310c4e4814d58a8f8aac8da36ff2d1d0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test7_3aafc_8test7_3aafc_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 522774,
+      "sha256": "5a3e2184ba2db5ffd4329ef81c42e8b5b552b6c9f2c4f5836ecacf8b5f27d753",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test8_6990c_8test8_6990c_unrelaxed_rank_001_alphafold2_multimer_v3_model_1_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 538650,
+      "sha256": "311c13fb2f11bc50dcb1135fa34ce542b3067493e41ddfbb12edf7db5a2284c5",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/8test9_2e9fb_8test9_2e9fb_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 567243,
+      "sha256": "67cfee60f859996cc46b4677fb642366af7626778edc63d51d44523c3957a313",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test10_777fd_9test10_777fd_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 409455,
+      "sha256": "29a2f6d502b95cf74f1852047f0780f555edf0481979435c691d7d8df91dfb4f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test2_7ad84_9test2_7ad84_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 625968,
+      "sha256": "eab4282fb1efc10c5838014251625a6468f6ea6e58335d88a8f34fa2dcd1c747",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test3_2d186_9test3_2d186_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 417960,
+      "sha256": "da8d488f4d724a9c455ccdd2ec37ad257c7163b4f082cac3f162299a489ffc5f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test4_8adaa_9test4_8adaa_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 906957,
+      "sha256": "ddbcedfa14afa6f122fae01f2d823d570829d2e773e313b09bfc6c7fb4ddc5df",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test5_0172f_9test5_0172f_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 404352,
+      "sha256": "eae8eea2fbc507fd67805aa89515586ba6b1b445688fd95feac2f16e456d3848",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test6_6d063_9test6_6d063_unrelaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 390258,
+      "sha256": "33768a02bb02e7466229c5e5d80e2efec8cbc625ea23ab936791e62882f63ee9",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test7_a296b_9test7_a296b_unrelaxed_rank_001_alphafold2_multimer_v3_model_3_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 393579,
+      "sha256": "cf5b239fc16e682d597ec430e9faef2609e6a0b599d0ce8d6d3739f269b7348c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test8_d33a3_9test8_d33a3_unrelaxed_rank_001_alphafold2_multimer_v3_model_2_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 513783,
+      "sha256": "319375c5bad0a829c735e0bac1faa8c2b390cefc84fa7e7122dc5f1a3303ee91",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/9test9_a8a4e_9test9_a8a4e_unrelaxed_rank_001_alphafold2_multimer_v3_model_5_seed_000.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 336879,
+      "sha256": "2f46245cae1b34b4b5f11f6ec573d43badc60be6de7f984330f75e79be4c4ebb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_10_test_2_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1885108,
+      "sha256": "2f248dab596e32d11868a629268f37eaf9e450c6aac259fc3e9c555573d8435b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_12_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1728898,
+      "sha256": "4dfd424d8dc84dbe34d809206333f1ddc589d4349acc5fed6622cc008c47f8e2",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_13_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1742100,
+      "sha256": "83dfe73cc085df0735098be182ca07bd059363a7184dc8ed8c1192cbe9bda699",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_14_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1845666,
+      "sha256": "41d1f58283dcef7d166086737c1ea69693f1b749d095081d796c65f77c3593b7",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_15_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2169730,
+      "sha256": "bfbb4381888d7c1e0b6394f0d1e2083248db72e8ae5719cafb0e10367da6738a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_16_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1831398,
+      "sha256": "9f517802e5fc113d0e4c126d7d9164e5d9ab9b468174ed154bead0776981fe07",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_17_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2172600,
+      "sha256": "e0361e5c77b0938a68769046196e6503fff62f39e0844c227f9199dd80ef38fb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_10_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1613688,
+      "sha256": "33ef20cb1e473d721fa671112cc660e8824df535b06ec9e13ec17a53c6a63f7b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2956602,
+      "sha256": "00efc0a1bb880b24b405155f9ecdcc2d6c544057bd497750937ee158a28e9aed",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_2_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2128074,
+      "sha256": "b6c8c6dae7de03cf2e47d0de9649f77ae54834dd6172b3da5af7befb6481373c",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_3_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1635500,
+      "sha256": "5df9ba67e9b272297ab7fe25b2026a2f910248ce49f5442dd1a10a0bc484ddfa",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1845584,
+      "sha256": "e6f0fdc86000a4b5e51f1b34abd7a8b8c26d6b74419587206d8b27e3523402b6",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_5_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1763912,
+      "sha256": "23d377175118d2147e5e7974ca0648832782d8f6fbf35e4940ff9dabaf5321e8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_6_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1594254,
+      "sha256": "475f0edec6ced8c1b144874b65ead9c487d213ba67c249311debe844d1e55397",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_7_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1597616,
+      "sha256": "557f370f0d95743b1c790d511fc2dbba33ff5ce41deb9933dbafe98e1f664ebf",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_8_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1642634,
+      "sha256": "fc9c480382b075696063c7aa8ca38249e77f8fba8627cd50d8e7264faf589ed4",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_18_test_9_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1719304,
+      "sha256": "e3b762003bf4574fd04fd48203805df3a4401c23b74d48b10314303f3a2fd11f",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_19_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2181620,
+      "sha256": "b24590ff001052d0707cc6b9b7eb587f6a40b39eeea764f9e152263a14d04847",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_1_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1745216,
+      "sha256": "572d60af74cdf55d5b50a71342e2234040cb540f57498ee5209b922350b4316b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_20_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1800484,
+      "sha256": "34c7cdd4018d331cb395a718e63f6eeefd4788d9cc1af1b1fa62865303d58a8e",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_2_test_3_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1974652,
+      "sha256": "f4f8a8874561f9334cf490fa9cc3755d15a71d53b46f73f335a11e4b9f8c18f6",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_3_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1740050,
+      "sha256": "6f80e57c4ef49afcf3726f937f883e4a8f032a4a2617e5aedb4e426e1ff19757",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_4_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1733900,
+      "sha256": "44a018dd179fae1c8c5564ca9c585917c3c4e1e28f7a618a205a31b8c2b263e6",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_5_test_3_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1870430,
+      "sha256": "63b6fbea05b03baf782d37a424a2cbfc8ac78e5952b1de4d7656e84235fd0fa7",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_10_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1355471,
+      "sha256": "6be7904427a334dbcd5752a9d3bf5259171de1211064d6398fd7f7bd56b1c1b0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2653859,
+      "sha256": "7e1abb3451760805ca90b0302a0574b3c56adb30e79397e353ae1473acc4c2bd",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_2_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1332757,
+      "sha256": "91bf297af4d57f5b0427255241ce56fd3abaec27cc1fd35a8199e1208eee09c8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_3_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1825331,
+      "sha256": "39f63efae1dccde383f4a1325ccb066553fe27063230c9030b3d42ec20f592db",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1542841,
+      "sha256": "9745021091f81262d3a60992c65e4dfb87138bd5fa9b26b88c60b4965d77243a",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_5_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1734393,
+      "sha256": "44ce23db1d70e1882f24ed85875db8150402c421c136262378c521d59a5f711b",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_6_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 840592,
+      "sha256": "78de9cc614323db8f25dd5f8b5b5232d26d178657929020d94699dd40ce2ad08",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_7_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1339891,
+      "sha256": "ab219be0c23e46880c3e783f99b6d0b9d5e19ade53c94d9c1cb6940639b890c0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_8_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1310945,
+      "sha256": "055d05bd85df073e737419b4a4b2fdd77b44e486911ee6055f6d9a63197598d8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_6_test_9_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1294873,
+      "sha256": "bf3259c205d3ca58087fb8fd8d4c9ee224e899fe39a42ebf177cdf3b36ca1417",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_10_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 934892,
+      "sha256": "d67f8d83828ce3984f10ccd5d3de72def19c7c6a34453aee3217cdc74f4d95a0",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1023534,
+      "sha256": "dbabee462950fe76d87e38e755af3b18e997fa53e603b04a2d72c965c8cf71bb",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_2_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 868144,
+      "sha256": "9d7a24a5e4f598a32b87d7f005005f58f2e156222ad1941198da21701ad592c8",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_3_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 2216224,
+      "sha256": "a5ddedd2527eb9a032305952e872188f06032d0377da5eeaba3986ed36085718",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_4_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 895122,
+      "sha256": "78c3ed69d674d6032899c3e0dfc2975c7163355c5bf24b305ae3706214132183",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_5_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1387696,
+      "sha256": "a6f582090835957f74424d1db85e305d46de8948a183894988941ac66c410b34",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_6_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 853876,
+      "sha256": "a3a91ec2120be2e8f8086a3b50c5653b7756c0cee74f62207b38af29f07ee590",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_7_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 978926,
+      "sha256": "ac64308f3e036b78ac0a7c928b7530cd0dcbe7189dfad6d8cfdb14bc8e455bad",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_8_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 799838,
+      "sha256": "81ce797eb32aa8e27672481c7ac7579ea3f3c21b10ea55aadca7bf255d4d8efe",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_7_test_9_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 902256,
+      "sha256": "47123d5c7248f599ee7866a34606b4c8aa81febf37d34168006a1dac3a7d0f52",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    },
+    {
+      "file": "structures/fold_9_test_1_model_0.pdb",
+      "type": "PDB",
+      "required": false,
+      "size_bytes": 1776868,
+      "sha256": "2662ddfde0be8eca0162472a7e4e7e6e99cd83951a1399916bb21519f1511739",
+      "description": "AlphaFold/ColabFold predicted receptor\u2013candidate complex"
+    }
+  ]
+}

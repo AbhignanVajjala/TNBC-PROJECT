@@ -1,0 +1,11 @@
+Receptor,Protein,Category,TPS,Coverage,BS_flag,Tier,Shortlist_rank,Justification
+αvβ3 integrin / ITGAV–ITGB3,FN1,Evidence-supported,0.708,2/3,High,Tier2,6,"Canonical αvβ3 RGD ligand (STRING 0.999); positive-control-like — validates the pipeline. High BS, 2/3."
+EGFR,ANXA2,Evidence-supported,0.516,3/3,Medium,Tier2,20,ANXA2–EGFR association documented (STRING 0.958); 3/3 coverage; flagship convergent pair.
+EpCAM / EPCAM,CD44,Evidence-supported,0.558,3/3,High,Tier1,15,"EpCAM & CD44 co-expressed CSC markers (STRING 0.971); Tier1, 3/3, High BS."
+CD44,THBS1,Robust,0.563,3/3,High,Tier1,13,"CD44–THBS1; Tier1, 3/3 coverage, High BS, stable ranking; THBS1 up-regulates CD44-linked adhesion."
+ROR1,MFGE8,Potentially novel,0.716,2/3,High,Tier2,5,ROR1–MFGE8: no reported interaction; both strongly TNBC-enriched; top novel TPS (0.716). Hypothesis-generating.
+RON / MST1R,THBS1,Potentially novel,0.596,2/3,High,Tier2,12,RON/MST1R–THBS1: no reported interaction; THBS1 promiscuous surface ligand; Tier2.
+ICAM1 / CD54,ITGB1,Evidence-supported,0.603,2/3,High,Tier2,10,ICAM1–ITGB1 (STRING 0.967); integrin-adhesion axis; different receptor for diversity.
+CXCR4,FN1,Evidence-supported,0.56,2/3,High,Tier2,14,CXCR4–FN1 (STRING 0.857); CXCR4 = key TNBC metastasis receptor; different receptor.
+IGF1R,ANXA2,Potentially novel,0.499,2/3,Medium,Tier3,21,IGF1R–ANXA2: no reported direct interaction; both membrane-adjacent in cancer; hypothesis-generating.
+GPNMB,THBS1,Potentially novel,0.599,2/3,High,Tier3,11,GPNMB–THBS1: no reported interaction; GPNMB is a validated TNBC ADC target (glembatumomab); worth testing.

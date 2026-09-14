@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F3F0E8;
+  --color-cream-secondary: #ECE7DA;
+  --color-cream-soft: #FAF8F4;
+  --color-forest: #3E4F3F;
+  --color-deep-forest: #2C3A2D;
+  --color-sage: #8FA085;
+  --color-sage-light: #DCE3D8;
+  --color-terracotta: #A6543D;
+  --color-terracotta-dark: #8E4430;
+  --color-tan: #C7AD82;
+  --color-ink: #2A2A24;
+  --color-ink-muted: #5C5C54;
+  --color-ink-subtle: #8A8A80;
+
+  --font-editorial: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background-color: #F3F0E8;
+  color: #2A2A24;
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-editorial {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-mono-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.seq-contact {
+  background-color: rgba(166, 84, 61, 0.22);
+  color: #a6543d;
+  font-weight: 700;
+  border-radius: 3px;
+  padding: 1px 3px;
+  border: 1px solid rgba(166, 84, 61, 0.38);
+}
+
+#gmol-viewer {
+  position: relative;
+  width: 100%;
+  height: 490px;
+}
+
+/* Subtle focus styles matching scientific editorial guidelines */
+select:focus, button:focus, a:focus, input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3E4F3F, 0 0 0 4px #DCE3D8;
+}
+
+/* Custom understated scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #ECE7DA;
+}
+::-webkit-scrollbar-thumb {
+  background: #C7AD82;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8FA085;
+}
+
