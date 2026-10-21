@@ -1,17 +1,10 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { apiRouter } from "./server/routes";
+import app from "./server/app";
 
 async function startServer() {
-  const app = express();
-  const PORT = 3000;
-
-  // Middleware for parsing JSON requests
-  app.use(express.json());
-
-  // Mount API routes FIRST
-  app.use("/api", apiRouter);
+  const PORT = Number(process.env.PORT || 3000);
 
   // Vite middleware for development / static serving in production
   if (process.env.NODE_ENV !== "production") {
