@@ -1,92 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { PerspectiveMode, ScreenMode } from './types';
-import { RECEPTOR_DATASET, LIGANDS_DATABASE } from './data/dataset';
+import { RECEPTOR_DATASET, getLigand } from './data/dataset';
 import { Header } from './components/Header';
 import { TargetSelectorView } from './components/TargetSelectorView';
+import { readSelection, validSelection } from './lib/selection';
+import type { StructureData } from './lib/pdb';
+import { ThemeProvider } from './components/ThemeSwitcher';
 import { AnalysisView } from './components/AnalysisView';
 
 export default function App() {
   const [perspective, setPerspective] = useState<PerspectiveMode>('primer');
-  const [screenMode, setScreenMode] = useState<ScreenMode>('selector');
-  const [selectedReceptorId, setSelectedReceptorId] = useState<string>('trop2');
-  const [selectedLigandId, setSelectedLigandId] = useState<string>('anxa2');
-
-  // Initialize state from URL params or localStorage
+  const [selection, setSelection] = useState(readSelection);
+  const [uploads, setUploads] = useState<Record<string,StructureData>>({});
+  const {receptor:selectedReceptorId, scaffold:selectedLigandId, view:screenMode} = selection;
   useEffect(() => {
-    let receptor = 'trop2';
-    let scaffold = 'anxa2';
-    let view: ScreenMode = 'selector';
-
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('receptor')) receptor = urlParams.get('receptor') || 'trop2';
-      if (urlParams.has('scaffold')) scaffold = urlParams.get('scaffold') || 'anxa2';
-      if (urlParams.has('view')) {
-        const v = urlParams.get('view');
-        if (v === 'analysis') view = 'analysis';
-      }
-    } catch (e) {
-      console.warn('URL reading error:', e);
-    }
-
-    // Also check localStorage
-    try {
-      const stored = localStorage.getItem('vesicon_selected_pair');
-      if (stored && !window.location.search) {
-        const parsed = JSON.parse(stored);
-        if (parsed.receptor) receptor = parsed.receptor;
-        if (parsed.scaffold) scaffold = parsed.scaffold;
-      }
-    } catch (e) {}
-
-    // Verify receptor exists
-    const receptorMatch = RECEPTOR_DATASET.find((r) => r.id.toLowerCase() === receptor.toLowerCase());
-    if (receptorMatch) {
-      setSelectedReceptorId(receptorMatch.id);
-      // Verify scaffold is in receptor's groupA
-      const inGroupA = receptorMatch.groupA.some((g) => g.toLowerCase() === scaffold.toLowerCase());
-      if (inGroupA) {
-        setSelectedLigandId(scaffold.toLowerCase());
-      } else {
-        setSelectedLigandId(receptorMatch.groupA[0].toLowerCase());
-      }
-    }
-
-    setScreenMode(view);
+    const restore = () => setSelection(readSelection());
+    window.addEventListener('popstate', restore);
+    return () => window.removeEventListener('popstate', restore);
   }, []);
-
-  // Sync selection changes to URL query and localStorage
-  const updateStateAndUrl = (rec: string, lig: string, view: ScreenMode) => {
-    setSelectedReceptorId(rec);
-    setSelectedLigandId(lig);
-    setScreenMode(view);
-
-    try {
-      localStorage.setItem('vesicon_selected_pair', JSON.stringify({ receptor: rec, scaffold: lig }));
-      const newUrl = `?receptor=${encodeURIComponent(rec)}&scaffold=${encodeURIComponent(lig)}${view === 'analysis' ? '&view=analysis' : ''}`;
-      window.history.replaceState({}, '', newUrl);
-    } catch (e) {}
+  const updateStateAndUrl = (rec:string, lig:string, view:ScreenMode) => {
+    const next = validSelection(rec,lig,view);
+    setSelection(next);
+    try { localStorage.setItem('vesicon_selected_pair',JSON.stringify(next)); } catch {}
+    const params=new URLSearchParams({receptor:next.receptor,scaffold:next.scaffold});
+    if(next.view === 'analysis') params.set('view','analysis');
+    window.history.pushState({},'',`?${params}`);
   };
-
-  const handleSelectReceptor = (newReceptorId: string) => {
-    const recRecord = RECEPTOR_DATASET.find((r) => r.id.toLowerCase() === newReceptorId.toLowerCase());
-    if (!recRecord) return;
-
-    // Check if current ligand is in new receptor's Group A
-    const currentLigandValid = recRecord.groupA.some(
-      (sym) => sym.toLowerCase() === selectedLigandId.toLowerCase()
-    );
-
-    const nextLigandId = currentLigandValid
-      ? selectedLigandId.toLowerCase()
-      : recRecord.groupA[0].toLowerCase();
-
-    updateStateAndUrl(recRecord.id, nextLigandId, screenMode);
-  };
-
-  const handleSelectLigand = (newLigandId: string) => {
-    updateStateAndUrl(selectedReceptorId, newLigandId.toLowerCase(), screenMode);
-  };
+  const handleSelectReceptor = (id:string) => updateStateAndUrl(id,selectedLigandId,screenMode);
+  const handleSelectLigand = (id:string) => updateStateAndUrl(selectedReceptorId,id,screenMode);
+  const handleSelectPair = (rec:string,lig:string) => updateStateAndUrl(rec,lig,'analysis');
 
   const handleInspectAnalysis = () => {
     updateStateAndUrl(selectedReceptorId, selectedLigandId, 'analysis');
@@ -99,11 +41,11 @@ export default function App() {
   };
 
   const currentReceptor = RECEPTOR_DATASET.find((r) => r.id === selectedReceptorId) || RECEPTOR_DATASET[0];
-  const currentLigand = LIGANDS_DATABASE[selectedLigandId] || LIGANDS_DATABASE['anxa2'];
+  const currentLigand = getLigand(selectedLigandId);
 
   return (
-    <div
-      className="min-h-screen flex flex-col justify-between selection:bg-sage/20 selection:text-deep-forest relative overflow-x-hidden"
+    <ThemeProvider><div
+      className="min-h-screen flex flex-col justify-between selection:bg-sage/20 selection:text-[var(--deep-forest-ink)] relative overflow-x-hidden"
       data-mode={perspective}
     >
       {/* Understated Molecular / Network Background Geometry */}
@@ -186,6 +128,9 @@ export default function App() {
         </>
       ) : (
         <AnalysisView
+          uploads={uploads}
+          onUpload={(value) => setUploads(previous => ({...previous,[value.pairId]:value}))}
+          onSelectPair={handleSelectPair}
           perspective={perspective}
           onPerspectiveChange={setPerspective}
           selectedReceptorId={selectedReceptorId}
@@ -195,6 +140,6 @@ export default function App() {
           onSelectReceptor={handleSelectReceptor}
         />
       )}
-    </div>
+    </div></ThemeProvider>
   );
 }

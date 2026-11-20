@@ -6,26 +6,19 @@ interaction records load, and every interaction maps to an existing PDB.
 Run (from backend/):  python scripts/verify_data.py     ->  prints PASS or FAIL
 Exit code 0 = PASS, 1 = FAIL.
 """
-import hashlib, json, sys
+import json, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.config import get_settings
+from app.utils.integrity import verify_entry
 
 S = get_settings()
 DATA_ROOT = S.data_dir.parent
 
 
-def sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def main() -> int:
-    errors, checks = [], 0
+    errors, checks, normalized = [], 0, 0
 
     if not S.manifest.exists():
         print("FAIL: MANIFEST.json missing (run scripts/build_manifest.py)")
@@ -38,10 +31,11 @@ def main() -> int:
         path = DATA_ROOT / e["file"]
         if not path.exists():
             errors.append(f"missing file: {e['file']}"); continue
-        if path.stat().st_size != e["size_bytes"]:
-            errors.append(f"size mismatch: {e['file']}")
-        if sha256(path) != e["sha256"]:
-            errors.append(f"hash mismatch: {e['file']}")
+        result = verify_entry(path, e)
+        if result == "mismatch":
+            errors.append(f"size/hash mismatch: {e['file']}")
+        elif result == "crlf_normalized":
+            normalized += 1
 
     # 2) required files present
     for e in manifest["data_files"]:
@@ -71,6 +65,7 @@ def main() -> int:
 
     print(f"  data files checked  : {len(manifest['data_files'])}")
     print(f"  structures checked  : {len(manifest['structures'])}")
+    print(f"  CRLF expansions verified against original LF bytes: {normalized}")
 
     if errors:
         print(f"\nFAIL ({len(errors)} problem(s)):")

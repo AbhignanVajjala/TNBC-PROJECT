@@ -78,6 +78,8 @@ class InteractionRepository:
     def _structure(self, struct, t, g, iid):
         try:
             s = struct.loc[(t, g)]
+            if s["interaction_id"] != iid:
+                raise ValueError(f"Structure-index identity mismatch: expected {iid}, got {s['interaction_id']}")
             avail = bool(s["available"])
             fname = s["structure_filename"] if avail else None
             return {

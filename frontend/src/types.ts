@@ -47,19 +47,19 @@ export interface LigandItem {
 }
 
 export interface PairScoreData {
-  score: number;
-  tier: 'Tier 1' | 'Tier 2' | 'Tier 3';
-  deltaG: number; // kcal/mol
-  kd: number; // nM
-  interfaceArea: number; // Å²
-  ipTM: number; // 0..1
-  pae: number; // Å
+  score: number | null;
+  tier: string;
+  deltaG: number | null; // kcal/mol
+  kd: number | null; // nM
+  interfaceArea: number | null; // Å²
+  ipTM: number | null; // 0..1
+  pae: number | null; // Å
   scores: {
-    structural: number;
-    affinity: number;
-    specificity: number;
-    density: number;
-    evidence: number;
+    structural: number | null;
+    affinity: number | null;
+    specificity: number | null;
+    density: number | null;
+    evidence: number | null;
   };
   hotspots: {
     receptorResidue: string;

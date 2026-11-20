@@ -2,6 +2,8 @@ import json
 from fastapi import APIRouter
 from app.config import get_settings
 from app.data.repositories.interaction_repository import get_repository
+from app.utils.integrity import manifest_integrity
+from app.services.structure_service import resolve_pdb_path
 
 router = APIRouter(prefix="/system", tags=["system"])
 
@@ -16,11 +18,7 @@ def system_status():
     manifest_ok = S.manifest.exists()
     if manifest_ok:
         try:
-            m = json.loads(S.manifest.read_text(encoding="utf-8"))
-            data_root = S.data_dir.parent
-            missing = [e["file"] for e in m["data_files"] + m["structures"]
-                       if not (data_root / e["file"]).exists()]
-            integrity = "verified" if not missing else f"incomplete ({len(missing)} missing)"
+            integrity = manifest_integrity(S.manifest, S.data_dir.parent)["integrity"]
         except Exception:
             integrity = "manifest_unreadable"
 
@@ -32,7 +30,7 @@ def system_status():
             "structures_dir_available": S.pdb_dir.exists(),
             "interactions": len(rows),
             "pdb_files": pdb_count,
-            "structures_resolved": sum(1 for r in rows if r["structure"]["pdb_available"]),
+            "structures_resolved": sum(1 for r in rows if resolve_pdb_path(r["interaction_id"]) is not None),
             "manifest_present": manifest_ok,
             "integrity": integrity,
             "database": "not used (CSV-backed, in-memory)",

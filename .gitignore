@@ -25,3 +25,9 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local validation environments and browser artifacts
+.venv312/
+.pytest_cache/
+playwright-report/
+test-results/

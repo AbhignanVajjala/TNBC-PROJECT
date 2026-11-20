@@ -103,7 +103,9 @@ interaction id = `T{target}_{PROTEIN}` (e.g. `T6_MFGE8`).
 ## PDB access (for the frontend)
 `GET /api/interactions/{id}/structure/pdb` streams the **locally bundled** PDB (media type
 `chemical/x-pdb`; `?download=true` forces attachment). Load the text into Mol*/3Dmol.js/NGL.
-Chain **A = receptor**, chain **B = candidate**. The frontend never needs a filesystem path — only the API URL.
+Read actual chain identifiers from each structure. Biological chain assignments
+are **unverified**: nine indexed integrin complexes contain A/B/C chains.
+The frontend never needs a filesystem path — only the API URL.
 
 ## Frontend connection
 1. Set `FRONTEND_URL` (comma-separated origins) for CORS — works with React/Next.js/Vite unchanged.

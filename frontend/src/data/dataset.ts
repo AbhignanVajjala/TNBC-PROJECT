@@ -1,3 +1,5 @@
+import evidence from "./evidence.json";
+import type { ExoRankInteraction } from "../services/api";
 import { ReceptorItem, LigandItem, PairScoreData } from '../types';
 
 export const RECEPTOR_DATASET: ReceptorItem[] = [
@@ -17,7 +19,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I transmembrane (Ectodomain residues 27–274 with EGF-like and thyroglobulin type-1 repeats).",
       glycosylation: "4 N-linked sites (Asn33, Asn120, Asn168, Asn208) modulating steric epitope access.",
       pathway: "Clathrin-mediated endocytosis followed by lysosomal trafficking.",
-      docking: "AlphaFold multimer interface predicted at thyroglobulin cleft; RMSD 1.84Å with high confidence (pLDDT > 82)."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -36,7 +38,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I RTK (Domains I–IV extracellular 25–645; tethered inactive conformation vs active extended dimer).",
       glycosylation: "11 recognized extracellular N-glycosylation sites influencing cetuximab/panitumumab epitopes.",
       pathway: "Dynamin-dependent clathrin-mediated endocytosis with rapid recycling loop.",
-      docking: "Domain III ectodomain docking pocket; predicted buried surface area >1,250 Å²; ipTM score 0.78."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -55,7 +57,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I single-pass membrane glycoprotein (Ectodomain 24–265 containing TY and N-terminal domains).",
       glycosylation: "3 functional N-glycosylation sites (Asn74, Asn111, Asn198).",
       pathway: "Regulated intramembrane proteolysis (RIP) triggered by ADAM17/gamma-secretase cleavage.",
-      docking: "Homotypic/heterotypic cis-dimeric interface; predicted docking free energy ΔG = -9.8 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -74,7 +76,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I membrane protein with fibronectin type-III-like tandem beta-sandwich domains.",
       glycosylation: "Asn11, Asn124, Asn137 N-glycosylation sites near the canonical FVIIa binding cleft.",
       pathway: "Caveolae-mediated and lipid raft-associated internalization.",
-      docking: "Exosomal scaffold alignment against beta-strand sheet loop 3; ipTM predicted 0.71."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -93,7 +95,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I glycoprotein containing 5 immunoglobulin-like C2-type extracellular domains (residues 28–480).",
       glycosylation: "Extensively sialylated and N-glycosylated (up to 8 functional sites across Ig domains D1–D4).",
       pathway: "Macropinocytosis and caveolar engulfment.",
-      docking: "D1 domain CDR-loop-like interface; binding affinity Kd in low nanomolar window."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -112,7 +114,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Heterodimeric transmembrane receptor complex with high/low affinity bent-to-extended conformational shifts.",
       glycosylation: "Multiple high-mannose and complex oligosaccharide chains on the beta-propeller headpiece.",
       pathway: "Rab21/Rab11 recycling machinery and clathrin-independent endocytic carriers.",
-      docking: "Cation-dependent metal ion-dependent adhesion site (MIDAS); computational docking ΔG = -11.4 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -131,7 +133,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Heterodimeric mucin with Variable Number Tandem Repeat (VNTR) domain; 20-aa repeating sequence.",
       glycosylation: "Truncated O-glycans (Tn and sialyl-Tn antigens) exposing the bare protein backbone (APDTRP).",
       pathway: "Macropinocytic bulk uptake and retrograde endosomal-to-Golgi transport.",
-      docking: "Docking targeted against the unmasked APDTRP loop pocket; AlphaFold ipTM 0.69."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -150,7 +152,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "12-transmembrane alpha-helical major facilitator superfamily (MFS) with extracellular loop 1 (ECL1).",
       glycosylation: "Functional N-glycosylation at Asn45 in ECL1 loop facing extracellular space.",
       pathway: "Clathrin-independent carrier-mediated endocytosis.",
-      docking: "Outward-open occluded cavity interface docking; predicted buried surface area >1,140 Å²."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -169,83 +171,83 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I cell surface receptor with extracellular von Willebrand factor type A (vWA) domain.",
       glycosylation: "Extracellular N-linked sites at Asn72, Asn144.",
       pathway: "Dynamin-dependent clathrin-mediated endocytic entry.",
-      docking: "vWA metal ion-dependent adhesion site (MIDAS); docking free energy ΔG = -10.2 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
     id: "cd44v6",
     no: 10,
     target: "GPNMB",
-    uniprot: "P16070-var",
+    uniprot: "Q14956",
     groupA: ["LGALS3BP", "FN1", "THBS1", "MFGE8", "ANXA2"],
     groupB: ["GAPDH", "PGK1", "ALDOA", "ENO1", "TKT"],
     primer: {
-      what: "A stem-like tumor cell surface splice variant that promotes metastatic spread.",
-      whyTNBC: "Enriched on TNBC cancer stem cell populations, mediating resistance and distant organ seeding.",
-      mechanism: "Acts as a co-receptor for MET and VEGFR2 to amplify receptor tyrosine kinase activation."
+      what: "GPNMB: receptor listed in the authoritative TNBC candidate panel.",
+      whyTNBC: "Included in the project receptor panel for computational prioritization; experimental selectivity is not established.",
+      mechanism: "Metadata unavailable"
     },
     deep: {
-      topology: "Type I transmembrane glycoprotein containing variant exon 6 inserted into proximal stalk.",
-      glycosylation: "Heavily decorated with chondroitin sulfate and sialylated O-glycans flanking exon 6 epitope.",
-      pathway: "Lipid raft-mediated internalization and caveolar trafficking.",
-      docking: "Exon v6 encoded loop (residues 305–346) solvent accessible dock interface; ipTM 0.77."
+      topology: "Metadata unavailable",
+      glycosylation: "Metadata unavailable",
+      pathway: "Metadata unavailable",
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
     id: "folr1",
     no: 11,
     target: "LIV-1 / SLC39A6",
-    uniprot: "P15328",
+    uniprot: "Q13433",
     groupA: ["SLC3A2", "BSG", "ANXA2", "LGALS3BP", "SDCBP"],
     groupB: ["GAPDH", "LDHA", "PGK1", "ALDOA", "PKM"],
     primer: {
-      what: "A high-affinity receptor for folic acid that is selectively overexpressed in specific TNBC cohorts.",
-      whyTNBC: "Enables rapid nutrient scavenging in dense triple-negative tumors while being restricted to apical surfaces in normal tissues.",
-      mechanism: "Internalizes folate molecules required for DNA synthesis and rapid oncogenic replication."
+      what: "LIV-1 / SLC39A6: receptor listed in the authoritative TNBC candidate panel.",
+      whyTNBC: "Included in the project receptor panel for computational prioritization; experimental selectivity is not established.",
+      mechanism: "Metadata unavailable"
     },
     deep: {
-      topology: "GPI-anchored cell surface glycoprotein displaying globular alpha-helical rich fold.",
-      glycosylation: "3 conserved N-glycosylation sites (Asn69, Asn161, Asn201).",
-      pathway: "GPI-AP enriched early endosomal compartment (GEEC) caveolae-like endocytosis.",
-      docking: "Folate binding pocket apex interface; calculated ΔG = -10.7 kcal/mol."
+      topology: "Metadata unavailable",
+      glycosylation: "Metadata unavailable",
+      pathway: "Metadata unavailable",
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
     id: "gpnmb",
     no: 12,
     target: "PD-L1 / CD274",
-    uniprot: "Q14956",
+    uniprot: "Q9NZQ7",
     groupA: ["LGALS3BP", "ANXA2", "SDCBP", "FN1", "MFGE8"],
     groupB: ["GAPDH", "ENO1", "LDHA", "PGK1", "TPI1"],
     primer: {
-      what: "A transmembrane glycoprotein linked to cancer cell invasiveness and metastatic bone tropism.",
-      whyTNBC: "Expressed in approximately 60% of basal-like TNBCs, predicting poor metastasis-free survival.",
-      mechanism: "Modulates invasion, activates MMPs, and suppresses anti-tumor T cell response via extracellular domain shed."
+      what: "PD-L1 / CD274: receptor listed in the authoritative TNBC candidate panel.",
+      whyTNBC: "Included in the project receptor panel for computational prioritization; experimental selectivity is not established.",
+      mechanism: "Metadata unavailable"
     },
     deep: {
-      topology: "Type I transmembrane protein containing an extracellular RGD domain and polycystic kidney disease (PKD) domain.",
-      glycosylation: "Dense N-glycan branching on extracellular ectodomain (residues 23–486).",
-      pathway: "Lysosomal targeted trafficking and metalloproteinase cleavage (ADAM10).",
-      docking: "Ectodomain PKD-like fold accessible docking pocket; ipTM predicted 0.75."
+      topology: "Metadata unavailable",
+      glycosylation: "Metadata unavailable",
+      pathway: "Metadata unavailable",
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
     id: "enpp1",
     no: 13,
     target: "CD44",
-    uniprot: "P22413",
+    uniprot: "P16070",
     groupA: ["FN1", "ITGB1", "MFGE8", "THBS1", "LGALS3BP"],
     groupB: ["GAPDH", "LDHA", "ALDOA", "ENO1", "PKM"],
     primer: {
-      what: "An immune-suppressing ecto-enzyme displayed on triple-negative tumor membranes.",
-      whyTNBC: "Degrades immunogenic 2'3'-cGAMP to block STING pathway activation, hiding tumors from immune surveillance.",
-      mechanism: "Generates adenosine to paralyze cytotoxic T cells and promote unchecked triple-negative tumor survival."
+      what: "CD44: receptor listed in the authoritative TNBC candidate panel.",
+      whyTNBC: "Included in the project receptor panel for computational prioritization; experimental selectivity is not established.",
+      mechanism: "Metadata unavailable"
     },
     deep: {
-      topology: "Type II transmembrane homodimeric metalloenzyme with catalytic phosphodiesterase domain and nuclease-like domain.",
-      glycosylation: "N-glycosylated across conserved ectodomain asparagines (residues 98–925).",
-      pathway: "Endosomal sorting and membrane vesicular shedding.",
-      docking: "Extracellular regulatory domain cleft docking; interface area >1,310 Å²."
+      topology: "Metadata unavailable",
+      glycosylation: "Metadata unavailable",
+      pathway: "Metadata unavailable",
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -264,7 +266,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Type I RTK ectodomain composed of 2 Ig-like domains (Ig1, Ig2) and 2 fibronectin type III repeats (FN1, FN2).",
       glycosylation: "Multiple extracellular N-glycosylation sites modulating Gas6 homodimer pairing.",
       pathway: "Clathrin-mediated endocytosis with lysosomal degradation.",
-      docking: "Ig1-Ig2 domain cleft interaction interface; computational ΔG = -11.8 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -283,26 +285,26 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Heterodimeric receptor with extracellular Sema domain, PSI domain, and 4 IPT (Ig-like) repeats.",
       glycosylation: "Extensively N-glycosylated (11 sites) in Sema beta-propeller.",
       pathway: "Dynamin-dependent clathrin uptake and rapid sorting to recycling endosomes.",
-      docking: "Sema domain blade 2–3 extracellular pocket; AlphaFold ipTM 0.81."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
     id: "ptk7",
     no: 16,
     target: "ROR1",
-    uniprot: "Q13308",
+    uniprot: "Q01973",
     groupA: ["FN1", "ITGB1", "ANXA2", "LGALS3BP", "MFGE8"],
     groupB: ["GAPDH", "LDHA", "PKM", "PGK1", "TPI1"],
     primer: {
-      what: "A non-catalytic receptor tyrosine kinase involved in Wnt signaling and cell polarity.",
-      whyTNBC: "Strongly upregulated in basal-like TNBC subsets, marking stem-like tumor-initiating cells.",
-      mechanism: "Regulates non-canonical Wnt/PCP pathways to control cancer cell orientation, motility, and tissue invasion."
+      what: "ROR1: receptor listed in the authoritative TNBC candidate panel.",
+      whyTNBC: "Included in the project receptor panel for computational prioritization; experimental selectivity is not established.",
+      mechanism: "Metadata unavailable"
     },
     deep: {
-      topology: "Type I transmembrane receptor consisting of 7 extracellular Ig-like loops (residues 31–704).",
-      glycosylation: "Extensively post-translationally glycosylated across Ig loops D1–D5.",
-      pathway: "Internalized through clathrin-coated pits upon extracellular scaffold binding.",
-      docking: "Outer Ig loop D1-D2 interface cleft; predicted buried surface area >1,180 Å²."
+      topology: "Metadata unavailable",
+      glycosylation: "Metadata unavailable",
+      pathway: "Metadata unavailable",
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -321,7 +323,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Disulfide-linked alpha/beta heterodimer with extracellular Sema, PSI, and IPT domains.",
       glycosylation: "N-linked carbohydrate chains on Sema domain modulate ligand binding accessibility.",
       pathway: "Clathrin-mediated endocytic entry followed by Rab7-directed degradation.",
-      docking: "Sema-PSI transition junction cleft; docking ΔG = -9.9 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -340,7 +342,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Large Type I single-pass membrane proteoglycan (ectodomain 2,221 amino acids with laminin G-like and D3 domains).",
       glycosylation: "Covalently modified with chondroitin sulfate glycosaminoglycan chains.",
       pathway: "Macropinocytic uptake and caveolae-associated internalization.",
-      docking: "D3 central domain globular repeat docking site; ipTM score 0.73."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -359,7 +361,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "Heterotetrameric complex (alpha2-beta2) with extracellular L1, CR, and L2 domains.",
       glycosylation: "16 functional N-glycosylation sites distributed along the extracellular alpha-subunits.",
       pathway: "Clathrin-mediated endocytosis regulated by beta-arrestin ubiquitination.",
-      docking: "CR cysteine-rich domain pocket docking; computational ΔG = -10.9 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   {
@@ -378,7 +380,7 @@ export const RECEPTOR_DATASET: ReceptorItem[] = [
       topology: "7-transmembrane G-protein coupled receptor (GPCR) with extracellular N-terminus and 3 ECL loops.",
       glycosylation: "Functional N-glycosylation at Asn11 in the extracellular N-terminus.",
       pathway: "Agonist-induced beta-arrestin recruitment and rapid clathrin-dependent endocytosis.",
-      docking: "Orthosteric ligand binding pocket involving ECL2 and transmembrane helices TM3/TM5/TM7; ipTM 0.76."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   }
 ];
@@ -397,7 +399,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Peripheral membrane protein via conserved four-domain annexin repeat core.",
       topology: "Presents accessible N-terminus (residues 1–33) and C-terminal calcium/phospholipid coordination loops.",
       exosomeDensity: "Enriched in small extracellular vesicles (sEVs, 50–140 nm); >450 copies per EV particle.",
-      docking: "Coordinates electrostatic contact with target receptor extracellular domains without steric lipid occlusion."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   lgals3bp: {
@@ -413,7 +415,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Secreted multidomain EV surface-associated scaffold (SRCR, BTB/POZ, and IVR domains).",
       topology: "Assembles into large dome- or ring-shaped decamers/dodecamers presenting multiple binding valencies.",
       exosomeDensity: "Abundantly recovered in exosome proteomic screens across human biological fluids.",
-      docking: "SRCR group A domain displays broad lectin-mediated and protein-protein binding interfaces; ipTM 0.74."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   sdcbp: {
@@ -429,7 +431,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Tandem PDZ-domain intracellular/transmembrane adaptor protein.",
       topology: "Dual PDZ domains (PDZ1 & PDZ2) coupled with N-terminal ESCRT-binding motifs.",
       exosomeDensity: "Canonical exosome biogenesis biomarker; drives syndecan-syntenin-ALIX budding cascade.",
-      docking: "High-affinity binding to peptide epitopes; robust display scaffold for extracellular nanobodies."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   fn1: {
@@ -445,7 +447,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "High molecular weight multidomain glycoprotein dimer linked by antiparallel C-terminal disulfides.",
       topology: "Contains Type I, II, and III repeats including the canonical RGD-containing III-10 module.",
       exosomeDensity: "Constitutively tethered to exosomal integrin complexes during biogenesis.",
-      docking: "Synergistic binding through RGD loop and PHSRN synergy sites to cell surface integrins; ΔG = -12.1 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   mfge8: {
@@ -461,7 +463,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Peripheral EV membrane protein with tandem C1/C2 discoidin-type phospholipid-binding domains.",
       topology: "N-terminal EGF-like domain harboring an active RGD motif coupled to membrane-inserting C2 domain.",
       exosomeDensity: "High stereospecific affinity for phosphatidylserine (PS) outer-leaflet microdomains.",
-      docking: "EGF-like domain projects ~65 Å away from the vesicle lipid bilayer, minimizing steric repulsion."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   cd44: {
@@ -477,7 +479,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Type I single-pass transmembrane adhesion glycoprotein.",
       topology: "N-terminal link module (residues 21–120) with flexible heavily glycosylated stem region.",
       exosomeDensity: "Constitutive marker on aggressive cancer-derived extracellular vesicles.",
-      docking: "Hyaluronan-binding groove with favorable interface complementarity to tumor receptor clusters."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   bsg: {
@@ -493,7 +495,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Type I single-pass transmembrane glycoprotein with 2 Ig-like domains.",
       topology: "Extracellular Ig0 and Ig1 domains presenting solvent-exposed binding surfaces.",
       exosomeDensity: "Abundantly sorted into microvesicles and exosomes; copurifies with tetraspanin-enriched domains.",
-      docking: "Ig-like fold displays prominent beta-sheet face for receptor-receptor docking."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   thbs1: {
@@ -509,7 +511,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Disulfide-linked homotrimeric multidomain EV surface-associated adhesive protein.",
       topology: "TSR type 1 repeats, EGF-like type 2 repeats, and calcium-binding type 3 repeats.",
       exosomeDensity: "Frequently detected in exosome secretomes of activated stromal and vascular cells.",
-      docking: "TSR motifs coordinate high-affinity binding to CD47 and integrin receptor domains."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   itgb1: {
@@ -525,7 +527,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       topology: "Transmembrane beta subunit with vWFA-like MIDAS headpiece domain.",
       scaffoldType: "Transmembrane integrin complex scaffold.",
       exosomeDensity: "Core component of the exosomal integrin repertoire governing organotropic homing.",
-      docking: "MIDAS cation coordination pocket drives high-affinity stereospecific interface docking."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   itga6: {
@@ -541,7 +543,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       topology: "Cleaved heavy/light chain heterodimer with 7-bladed beta-propeller headpiece.",
       scaffoldType: "Type I transmembrane integrin alpha subunit.",
       exosomeDensity: "Documented driver of exosome lung and brain organotropism.",
-      docking: "Beta-propeller upper face coordinates receptor-receptor binding; ΔG = -11.1 kcal/mol."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   slc3a2: {
@@ -557,7 +559,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       topology: "Type II transmembrane glycoprotein with large extracellular alpha-amylase-like domain (residues 206–630).",
       scaffoldType: "Type II transmembrane scaffold.",
       exosomeDensity: "Constitutively enriched in exosome proteomic preparations.",
-      docking: "Extracellular domain cleft presents favorable electrostatic fit for solute carriers and GLUT5."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   hsp90aa1: {
@@ -573,7 +575,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       topology: "Multidomain homodimeric molecular chaperone consisting of N-terminal ATP-binding, middle, and C-terminal domains.",
       scaffoldType: "Surface-associated molecular chaperone.",
       exosomeDensity: "Markedly enriched on exosome membranes shed by aggressive cancer cells.",
-      docking: "Middle domain client-binding cleft coordinates stable non-covalent protein interactions."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   cd9: {
@@ -589,7 +591,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Tetraspanin four-transmembrane domain integral membrane scaffold.",
       topology: "4 transmembrane domains with Small Extracellular Loop (EC1) and Large Extracellular Loop (EC2, residues 112–195).",
       exosomeDensity: "Highest copy-number marker in human exosome proteomes (>120 copies per vesicle).",
-      docking: "EC2 loop displays solvent-accessible polar patches for stable heterodimerization with EGFR and TROP2."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   cd63: {
@@ -605,7 +607,7 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Four-pass transmembrane tetraspanin integral scaffold.",
       topology: "Extracellular EC2 loop (residues 103–203) with 3 conserved N-glycosylation sites.",
       exosomeDensity: "Enriched specifically in endosome-derived exosomes; hallmark of endolysosomal secretion.",
-      docking: "EC2 subdomain coordinates high-avidity interactions with cell-adhesion molecules and integrins."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   },
   cd81: {
@@ -621,126 +623,33 @@ export const LIGANDS_DATABASE: Record<string, LigandItem> = {
       scaffoldType: "Tetraspanin transmembrane organizer scaffold.",
       topology: "4 transmembrane alpha-helices with disulfide-stabilized EC2 loop (residues 113–201).",
       exosomeDensity: "Core tetraspanin universally required for exosome biogenesis and viral-like entry dynamics.",
-      docking: "EC2 loop presents hydrophobic mushroom-head topology that binds immune and tumor checkpoints."
+      docking: "Pair-specific predictions appear in the analysis view with source provenance."
     }
   }
 };
 
 // Known high-fidelity docking benchmark statistics
-const KNOWN_BENCHMARKS: Record<string, Partial<PairScoreData>> = {
-  'trop2-anxa2': {
-    score: 94,
-    tier: 'Tier 1',
-    deltaG: -11.8,
-    kd: 14.2,
-    interfaceArea: 1480,
-    ipTM: 0.84,
-    pae: 4.1,
-    scores: { structural: 95, affinity: 92, specificity: 96, density: 91, evidence: 93 },
-    hotspots: [
-      { receptorResidue: "Glu108", ligandResidue: "Arg162", interactionType: "Salt Bridge", distance: "2.8 Å" },
-      { receptorResidue: "Tyr184", ligandResidue: "Phe210", interactionType: "Pi-Stacking", distance: "3.4 Å" },
-      { receptorResidue: "Asp82", ligandResidue: "Lys164", interactionType: "Hydrogen Bond", distance: "2.7 Å" },
-      { receptorResidue: "Leu145", ligandResidue: "Val190", interactionType: "Hydrophobic", distance: "3.6 Å" }
-    ]
-  },
-  'avb3-fn1': {
-    score: 96,
-    tier: 'Tier 1',
-    deltaG: -12.4,
-    kd: 8.7,
-    interfaceArea: 1620,
-    ipTM: 0.89,
-    pae: 3.4,
-    scores: { structural: 98, affinity: 97, specificity: 94, density: 95, evidence: 96 },
-    hotspots: [
-      { receptorResidue: "Asp218 (MIDAS)", ligandResidue: "Arg1493 (RGD)", interactionType: "Salt Bridge", distance: "2.6 Å" },
-      { receptorResidue: "Tyr122", ligandResidue: "Asp1495", interactionType: "Hydrogen Bond", distance: "2.8 Å" },
-      { receptorResidue: "Trp186", ligandResidue: "Pro1497", interactionType: "Hydrophobic", distance: "3.5 Å" }
-    ]
-  },
-  'glut5-slc3a2': {
-    score: 93,
-    tier: 'Tier 1',
-    deltaG: -11.2,
-    kd: 19.5,
-    interfaceArea: 1390,
-    ipTM: 0.82,
-    pae: 4.5,
-    scores: { structural: 93, affinity: 91, specificity: 95, density: 94, evidence: 90 },
-    hotspots: [
-      { receptorResidue: "Arg48 (ECL1)", ligandResidue: "Asp340", interactionType: "Salt Bridge", distance: "2.7 Å" },
-      { receptorResidue: "Gln54", ligandResidue: "Lys388", interactionType: "Hydrogen Bond", distance: "2.9 Å" }
-    ]
-  },
-  'met-fn1': {
-    score: 94,
-    tier: 'Tier 1',
-    deltaG: -11.6,
-    kd: 16.4,
-    interfaceArea: 1440,
-    ipTM: 0.83,
-    pae: 4.2,
-    scores: { structural: 94, affinity: 93, specificity: 95, density: 92, evidence: 94 },
-    hotspots: [
-      { receptorResidue: "Asp180 (Sema)", ligandResidue: "Arg1370", interactionType: "Salt Bridge", distance: "2.7 Å" },
-      { receptorResidue: "Tyr220", ligandResidue: "Phe1410", interactionType: "Pi-Stacking", distance: "3.5 Å" }
-    ]
-  }
-};
-
+// Values are copied from the locked backend records, without re-scoring.
+export const EVIDENCE = evidence.interactions as unknown as Record<string, ExoRankInteraction>;
+export const EVIDENCE_SOURCES = evidence.sources;
+export function getPairEvidence(receptorId: string, ligandId: string): ExoRankInteraction | null {
+  const receptor = RECEPTOR_DATASET.find(r => r.id.toLowerCase() === receptorId.toLowerCase());
+  return receptor ? EVIDENCE[`T${receptor.no}_${ligandId.toUpperCase()}`] || null : null;
+}
+export function getLigand(id: string): LigandItem {
+  const key = id.toLowerCase();
+  if (LIGANDS_DATABASE[key]) return LIGANDS_DATABASE[key];
+  const item = Object.values(EVIDENCE).find(r => r.candidate_protein.toLowerCase() === key);
+  const missing = 'Metadata unavailable';
+  return {id:key, name:id.toUpperCase(), uniprot:item?.biology.uniprot_id || missing,
+    primer:{what:item?.biology.reason || missing, howEV:item?.biology.localization || missing, metaphor:missing},
+    deep:{scaffoldType:item?.biology.surface_feasibility || missing, topology:item?.biology.localization || missing,
+      exosomeDensity:missing, docking:missing}};
+}
 export function getPairScore(receptorId: string, ligandId: string): PairScoreData {
-  const key = `${receptorId.toLowerCase()}-${ligandId.toLowerCase()}`;
-  if (KNOWN_BENCHMARKS[key]) {
-    const base = KNOWN_BENCHMARKS[key];
-    return {
-      score: base.score || 92,
-      tier: base.tier || 'Tier 1',
-      deltaG: base.deltaG || -11.0,
-      kd: base.kd || 18.0,
-      interfaceArea: base.interfaceArea || 1400,
-      ipTM: base.ipTM || 0.81,
-      pae: base.pae || 4.4,
-      scores: base.scores || { structural: 90, affinity: 90, specificity: 90, density: 90, evidence: 90 },
-      hotspots: base.hotspots || [
-        { receptorResidue: "Glu120", ligandResidue: "Arg140", interactionType: "Salt Bridge", distance: "2.8 Å" },
-        { receptorResidue: "Tyr190", ligandResidue: "Leu180", interactionType: "Hydrophobic", distance: "3.4 Å" }
-      ]
-    };
-  }
-
-  // Deterministic calculation based on string hashing
-  let hash = 0;
-  for (let i = 0; i < key.length; i++) {
-    hash = (hash * 33 + key.charCodeAt(i)) % 10000;
-  }
-  const score = 78 + (hash % 18); // 78..95
-  const tier = score >= 88 ? 'Tier 1' : score >= 82 ? 'Tier 2' : 'Tier 3';
-  const deltaG = -8.5 - ((hash % 38) / 10); // -8.5 .. -12.3
-  const kd = 10 + (hash % 40); // 10 .. 50 nM
-  const interfaceArea = 1150 + ((hash % 45) * 10);
-  const ipTM = 0.72 + ((hash % 16) / 100);
-  const pae = 3.6 + ((hash % 20) / 10);
-
-  return {
-    score,
-    tier,
-    deltaG: Number(deltaG.toFixed(1)),
-    kd: Number(kd.toFixed(1)),
-    interfaceArea,
-    ipTM: Number(ipTM.toFixed(2)),
-    pae: Number(pae.toFixed(1)),
-    scores: {
-      structural: Math.min(98, score + (hash % 5) - 2),
-      affinity: Math.min(97, score + ((hash >> 2) % 6) - 3),
-      specificity: Math.min(99, score + ((hash >> 4) % 5) - 1),
-      density: Math.min(96, score + ((hash >> 6) % 6) - 2),
-      evidence: Math.min(95, score + ((hash >> 8) % 5) - 2)
-    },
-    hotspots: [
-      { receptorResidue: `Glu${100 + (hash % 90)}`, ligandResidue: `Arg${140 + (hash % 80)}`, interactionType: "Salt Bridge", distance: "2.8 Å" },
-      { receptorResidue: `Tyr${160 + (hash % 50)}`, ligandResidue: `Lys${110 + (hash % 60)}`, interactionType: "Hydrogen Bond", distance: "2.9 Å" },
-      { receptorResidue: `Leu${120 + (hash % 70)}`, ligandResidue: `Val${190 + (hash % 40)}`, interactionType: "Hydrophobic", distance: "3.5 Å" }
-    ]
-  };
+  const r = getPairEvidence(receptorId, ligandId);
+  return {score:r?.final.TPS ?? null, tier:r ? (r.final.preferred ? 'Prioritized for validation' : 'Outside preferred shortlist') : 'Not calculated',
+    deltaG:r?.prodigy.delta_G ?? null, kd:r?.prodigy.Kd == null ? null : r.prodigy.Kd * 1e9,
+    interfaceArea:null, ipTM:r?.alphafold.ipTM ?? null, pae:r?.alphafold.interface_PAE ?? null,
+    scores:{structural:r?.alphafold.AFS ?? null, affinity:r?.prodigy.PS ?? null, specificity:null, density:null, evidence:r?.string.SS ?? null}, hotspots:[]};
 }

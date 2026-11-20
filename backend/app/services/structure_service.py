@@ -12,11 +12,12 @@ def structure_meta(interaction_id: str):
     if r is None:
         return None
     st = dict(r["structure"])
+    st["pdb_available"] = resolve_pdb_path(r["interaction_id"]) is not None
     st["interaction_id"] = r["interaction_id"]
     st["receptor"] = r["receptor"]
     st["candidate_protein"] = r["candidate_protein"]
-    st["viewer_hint"] = ("Serve /structure/pdb to Mol*/3Dmol.js/NGL; chain A = receptor, "
-                         "chain B = candidate (receptor sequence first).") if st["pdb_available"] else None
+    st["viewer_hint"] = ("Serve /structure/pdb to Mol*/3Dmol.js/NGL. Read chain identifiers from "
+                         "the coordinates; biological chain assignments are unverified.") if st["pdb_available"] else None
     return st
 
 
