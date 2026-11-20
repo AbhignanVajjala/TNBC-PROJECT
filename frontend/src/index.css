@@ -126,37 +126,44 @@ select:focus, button:focus, a:focus, input:focus {
 }
 [data-theme="dark"] {
   color-scheme: dark;
-  --surface: #253229;
-  --color-cream: #18231c;
-  --color-cream-secondary: #26342a;
-  --color-cream-soft: #202d24;
-  --color-sage-light: #344734;
-  --color-ink: #e4e6dc;
-  --color-ink-muted: #b8c2b2;
-  --color-ink-subtle: #a0ae99;
-  --forest-ink: #b6c8aa;
-  --deep-forest-ink: #d8e2d0;
-  --a-bg-d3e5c7: #354e35;
-  --a-bg-e5e2d9: #36443a;
-  --a-bg-ebe8df: #36443a;
-  --a-bg-ece7da: #29362c;
-  --a-bg-f3f0e8: #18231c;
-  --a-bg-f4f7f2: #253528;
-  --a-bg-f6f4ea: #202e24;
-  --a-bg-fcf9f0: #19251e;
-  --a-bg-fff8f6: #332824;
-  --a-border-2c3a2d: #8ea386;
-  --a-border-53634b: #8ea386;
-  --a-divide-2c3a2d: #8ea386;
-  --a-ring-2c3a2d: #8ea386;
-  --a-text-1c1c16: #e7e7db;
-  --a-text-2c3a2d: #d4dfca;
-  --a-text-434842: #c1cbbf;
-  --a-text-53634b: #aebea5;
-  --a-text-747872: #a3afa1;
+  --surface: #141518;
+  --color-cream: #0B0C0E;
+  --color-cream-secondary: #202125;
+  --color-cream-soft: #141518;
+  --color-sage-light: #33353B;
+  --color-ink: #F3F4F6;
+  --color-ink-muted: #AEB2BA;
+  --color-ink-subtle: #AEB2BA;
+  --forest-ink: #F3F4F6;
+  --deep-forest-ink: #F3F4F6;
+  --a-bg-d3e5c7: #202125;
+  --a-bg-e5e2d9: #33353B;
+  --a-bg-ebe8df: #33353B;
+  --a-bg-ece7da: #202125;
+  --a-bg-f3f0e8: #0B0C0E;
+  --a-bg-f4f7f2: #141518;
+  --a-bg-f6f4ea: #141518;
+  --a-bg-fcf9f0: #0B0C0E;
+  --a-bg-fff8f6: #141518;
+  --a-border-2c3a2d: #33353B;
+  --a-border-53634b: #33353B;
+  --a-divide-2c3a2d: #33353B;
+  --a-ring-2c3a2d: #33353B;
+  --a-text-1c1c16: #F3F4F6;
+  --a-text-2c3a2d: #F3F4F6;
+  --a-text-434842: #AEB2BA;
+  --a-text-53634b: #AEB2BA;
+  --a-text-747872: #AEB2BA;
   --a-text-a6543d: #e49a7f;
-  --a-text-e5e3d7: #e5e3d7;
+  --a-text-e5e3d7: #F3F4F6;
+  --color-forest: #33353B;
+  --color-deep-forest: #202125;
+  --a-bg-2c3a2d: #202125;
+  --a-bg-3e4f3f: #33353B;
+  --a-bg-202b21: #141518;
+  --a-bg-53634b: #33353B;
 }
+
 
 .theme-switcher { margin-left:auto; display:inline-flex; flex-shrink:0; gap:2px; padding:3px; border:1px solid color-mix(in srgb,var(--forest-ink) 25%,transparent); border-radius:6px; background:var(--color-cream-secondary); }
 .theme-switcher button { display:grid; place-items:center; width:26px; height:24px; border-radius:3px; color:var(--color-ink-muted); cursor:pointer; }
@@ -176,4 +183,4 @@ button:disabled { cursor:not-allowed; opacity:.6; }
 }
 
 [data-theme="dark"] .seq-contact { color:#e49a7f; }
-[data-theme="dark"] ::-webkit-scrollbar-track { background:#26342a; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background:#202125; }
