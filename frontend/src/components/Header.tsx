@@ -1,8 +1,8 @@
 import { ThemeSwitcher } from './ThemeSwitcher';
-import React, { useState, useEffect } from 'react';
-import { BookOpen, FlaskConical, ChevronLeft, Server } from 'lucide-react';
+import React from 'react';
+import { BookOpen, FlaskConical, ChevronLeft } from 'lucide-react';
 import { PerspectiveMode, ScreenMode } from '../types';
-import { checkExoRankBackend, BackendHealthResponse } from '../services/api';
+import { useScienceApiStatus } from '../hooks/useScienceApiStatus';
 
 interface HeaderProps {
   perspective: PerspectiveMode;
@@ -21,27 +21,21 @@ export const Header: React.FC<HeaderProps> = ({
   receptorTarget,
   ligandTarget,
 }) => {
-  const [backendStatus, setBackendStatus] = useState<BackendHealthResponse | null>(null);
-  const [isCheckingBackend, setIsCheckingBackend] = useState(true);
-
-  useEffect(() => {
-    let isMounted = true;
-    const testHealth = async () => {
-      const data = await checkExoRankBackend().then(result => result?.connected ? {status:'ok'} : null);
-      if (isMounted) {
-        setBackendStatus(data);
-        setIsCheckingBackend(false);
-      }
-    };
-    testHealth();
-    const interval = setInterval(testHealth, 30000);
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+  const apiStatus = useScienceApiStatus();
+  const healthLabel = {
+    connecting: 'Science API Connecting',
+    available: 'Science API Online',
+    'temporary-unavailable': 'Science API Retrying',
+    unavailable: 'Science API Unavailable',
+  }[apiStatus];
+  const healthDescription = {
+    connecting: 'Connecting to the scientific API. Structure loading is verified separately.',
+    available: 'Scientific API reachable. Each molecular structure is checked separately.',
+    'temporary-unavailable': 'A scientific API check did not complete. Retrying automatically.',
+    unavailable: 'Three consecutive scientific API checks failed. Recovery checks continue automatically.',
+  }[apiStatus];
   return (
-    <header className="relative z-20 border-b border-forest/10 bg-cream/80 backdrop-blur-sm sticky top-0 transition-colors">
+    <header className="app-header relative z-20 border-b border-forest/10 bg-cream/80 backdrop-blur-sm sticky top-0 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-3">
         {/* Brand and Breadcrumbs */}
         <div className="flex flex-wrap items-center gap-3.5">
@@ -77,24 +71,21 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Backend API Status & Audience-Adaptive Perspective Segmented Toggle */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="header-controls flex flex-wrap items-center gap-3">
           <div
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono-code border bg-cream-secondary/70 border-forest/15 select-none"
-            title={
-              backendStatus
-                ? 'Scientific backend reachable; structure loading is verified separately.'
-                : isCheckingBackend
-                ? 'Connecting to backend API service...'
-                : 'Scientific backend unavailable'
-            }
+            className="api-status hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono-code border bg-cream-secondary/70 border-forest/15 select-none"
+            title={healthDescription}
+            role="status"
+            aria-live="polite"
+            data-status={apiStatus}
           >
             <span
               className={`w-1.5 h-1.5 rounded-full ${
-                backendStatus ? 'bg-emerald-600 animate-pulse' : isCheckingBackend ? 'bg-amber-500' : 'bg-gray-400'
+                apiStatus === 'available' ? 'bg-emerald-600' : apiStatus === 'unavailable' ? 'bg-gray-400' : 'bg-amber-500'
               }`}
             />
             <span className="text-[var(--forest-ink)]/80 font-medium">
-              {backendStatus ? 'Science API Online' : isCheckingBackend ? 'API Ping...' : 'Science API Offline'}
+              {healthLabel}
             </span>
           </div>
 
@@ -103,18 +94,17 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
           <div
             aria-label="Audience perspective mode"
-            className="inline-flex items-center p-1 bg-cream-secondary border border-forest/15 rounded-full shadow-inner text-xs font-sans font-medium"
-            role="tablist"
+            className="perspective-switch inline-flex items-center p-1 bg-cream-secondary border border-forest/15 rounded-full shadow-inner text-xs font-sans font-medium"
+            role="group"
           >
             <button
               onClick={() => onPerspectiveChange('primer')}
-              aria-selected={perspective === 'primer'}
+              aria-pressed={perspective === 'primer'}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                 perspective === 'primer'
                   ? 'bg-forest text-white shadow-sm'
                   : 'text-ink-muted hover:text-[var(--deep-forest-ink)]'
               }`}
-              role="tab"
               type="button"
             >
               <BookOpen className="w-3.5 h-3.5 opacity-90" />
@@ -123,13 +113,12 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onPerspectiveChange('deep')}
-              aria-selected={perspective === 'deep'}
+              aria-pressed={perspective === 'deep'}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                 perspective === 'deep'
                   ? 'bg-forest text-white shadow-sm'
                   : 'text-ink-muted hover:text-[var(--deep-forest-ink)]'
               }`}
-              role="tab"
               type="button"
             >
               <FlaskConical className="w-3.5 h-3.5 opacity-80" />

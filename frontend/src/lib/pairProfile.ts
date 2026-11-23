@@ -1,6 +1,7 @@
 import { getLigand, getPairEvidence, RECEPTOR_DATASET } from '../data/dataset';
 import { ExoRankInteraction } from '../services/api';
 import { StructureData } from './pdb';
+import { displayEvidenceText } from './text';
 export function formatMetric(value:number | null | undefined, digits=2): string {
   return value == null || !Number.isFinite(value) ? 'Not calculated' : (value !== 0 && Math.abs(value) < 0.01 ? value.toExponential(2) : value.toLocaleString('en-US',{maximumFractionDigits:digits,minimumFractionDigits:digits}));
 }
@@ -31,7 +32,7 @@ export function profile(receptor:typeof RECEPTOR_DATASET[number], evKey:string, 
     interfaceArea:null, contactResidueCount:unknown, hbonds:unknown, saltBridges:unknown,
     summary, interpretation:summary, primerText:summary,
     strengths:[{title:uploaded ? 'Uploaded coordinates' : 'Evidence provenance',desc:summary}],
-    caveats:[{title:'Experimental validation required',desc:data?.biology.reason || 'Coordinates alone do not establish binding, membrane orientation or biological identity.'}],
+    caveats:[{title:'Experimental validation required',desc:displayEvidenceText(data?.biology.reason || 'Coordinates alone do not establish binding, membrane orientation or biological identity.')}],
     milestone:'Validate receptor binding and EV surface presentation experimentally before drawing biological conclusions.',
   };
 }

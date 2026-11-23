@@ -166,10 +166,17 @@ export async function fetchExoRankStructure(interactionId: string, signal?:Abort
   return readPdbResponse(response);
 }
 
-/** Check whether the scientific backend is reachable through the proxy. */
-export async function checkExoRankBackend(): Promise<{ connected: boolean; backend?: any } | null> {
+/** Check service reachability. Each molecular structure is verified independently. */
+export async function checkExoRankBackend(signal?: AbortSignal): Promise<{ connected: boolean; backend?: any }> {
   try {
-    const res = await fetch('/api/exorank/health', { signal: AbortSignal.timeout(4500) });
+    // The proxy allows 15 seconds for its upstream check. Leave room for that
+    // response and network overhead before the browser cancels the request.
+    const timeout = AbortSignal.timeout(18000);
+    const res = await fetch('/api/exorank/health', {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+      signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+    });
     const data = await res.json();
     return {connected:res.ok && data.connected === true, backend:data.backend};
   } catch {

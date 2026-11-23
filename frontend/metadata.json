@@ -1,5 +1,5 @@
 {
-  "name": "EXO-TARGET — TNBC Target Prioritization",
+  "name": "EXO-TARGET | TNBC Target Prioritization",
   "description": "Computational prioritization and biophysical screening platform for engineered exosome delivery vehicles targeting triple-negative breast cancer receptors.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

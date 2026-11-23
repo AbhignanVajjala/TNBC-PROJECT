@@ -32,12 +32,12 @@ export default function App() {
 
   const handleInspectAnalysis = () => {
     updateStateAndUrl(selectedReceptorId, selectedLigandId, 'analysis');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
   const handleBackToSelector = () => {
     updateStateAndUrl(selectedReceptorId, selectedLigandId, 'selector');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
   const currentReceptor = RECEPTOR_DATASET.find((r) => r.id === selectedReceptorId) || RECEPTOR_DATASET[0];

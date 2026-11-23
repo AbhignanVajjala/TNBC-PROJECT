@@ -64,7 +64,25 @@ def test_missing_structure_reports_unavailable(client, monkeypatch, tmp_path):
 def test_frontend_snapshot_equals_current_backend_records_and_source_hashes():
     from scripts.export_frontend_evidence import snapshot
     actual = json.loads((Path(__file__).resolve().parents[2] / "frontend/src/data/evidence.json").read_text(encoding="utf-8"))
-    assert actual == snapshot()
+
+    def assert_same(left, right, path="snapshot"):
+        if isinstance(left, dict) and isinstance(right, dict):
+            assert left.keys() == right.keys(), path
+            for key in left:
+                assert_same(left[key], right[key], f"{path}.{key}")
+        elif isinstance(left, list) and isinstance(right, list):
+            assert len(left) == len(right), path
+            for index, (left_value, right_value) in enumerate(zip(left, right)):
+                assert_same(left_value, right_value, f"{path}[{index}]")
+        elif isinstance(left, float) and isinstance(right, float):
+            # Spreadsheet parsers can differ by one IEEE-754 rounding step across
+            # runtimes. Keep source hashes exact and tolerate only that single ULP.
+            assert math.isfinite(left) and math.isfinite(right), path
+            assert abs(left - right) <= max(math.ulp(left), math.ulp(right)), path
+        else:
+            assert type(left) is type(right) and left == right, path
+
+    assert_same(actual, snapshot())
 
 
 def test_manifest_crlf_tolerance_does_not_hide_coordinate_changes(tmp_path):

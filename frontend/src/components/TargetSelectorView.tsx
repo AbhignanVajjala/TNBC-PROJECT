@@ -1,6 +1,6 @@
 import { formatMetric } from '../lib/pairProfile';
 import React from 'react';
-import { ArrowRight, Sparkles, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { PerspectiveMode, ReceptorItem, LigandItem } from '../types';
 import { RECEPTOR_DATASET, LIGANDS_DATABASE, getPairScore, getLigand } from '../data/dataset';
 
@@ -39,12 +39,12 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
   const handleScrollToDetails = () => {
     const el = document.getElementById('target-protein-details');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
     }
   };
 
   return (
-    <div className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-16 flex flex-col">
+    <div className="selector-page relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-16 flex flex-col">
       {/* 2. COMPACT HERO SECTION */}
       <div className="text-center max-w-3xl mx-auto mb-3 sm:mb-4">
         <p className="text-[10px] sm:text-[11px] uppercase font-semibold tracking-wider text-[var(--forest-ink)]/75 mb-0.5 font-sans">
@@ -63,7 +63,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
       </div>
 
       {/* 3. MAIN SELECTOR CARD (COMPACT & COMPLETE WITH CTA ABOVE THE FOLD) */}
-      <section className="bg-[var(--surface)]/95 border border-forest/15 rounded-xl shadow-[0_4px_25px_rgba(44,58,45,0.05)] p-4 sm:p-5 mb-6 backdrop-blur-sm transition-all">
+      <section className="selection-card bg-[var(--surface)]/95 border border-forest/15 rounded-xl shadow-[0_4px_25px_rgba(44,58,45,0.05)] p-4 sm:p-5 mb-6 backdrop-blur-sm transition-all">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3 pb-2.5 border-b border-forest/10">
           <div>
             <h2 className="font-editorial text-lg sm:text-xl text-[var(--deep-forest-ink)] font-medium tracking-tight">
@@ -86,7 +86,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
         {/* SELECTOR DROPDOWNS: RECEPTOR ON LEFT, EV LIGAND ON RIGHT */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-2.5 sm:gap-3 mb-3">
           {/* LEFT: TNBC Receptor */}
-          <div className="bg-cream-secondary/60 hover:bg-cream-secondary/90 border border-forest/15 rounded-lg p-2.5 sm:p-3 transition-colors focus-within:border-forest/50 focus-within:bg-[var(--surface)] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+          <div className="selection-panel bg-cream-secondary/60 hover:bg-cream-secondary/90 border border-forest/15 rounded-lg p-2.5 sm:p-3 transition-colors focus-within:border-forest/50 focus-within:bg-[var(--surface)] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
             <div className="flex items-center justify-between mb-1">
               <label
                 className="text-[11px] font-semibold uppercase tracking-wider text-[var(--forest-ink)] font-sans flex items-center gap-1.5"
@@ -129,7 +129,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
           </div>
 
           {/* RIGHT: EV / Exosomal Protein (Restricted to Group A of active receptor) */}
-          <div className="bg-cream-secondary/60 hover:bg-cream-secondary/90 border border-forest/15 rounded-lg p-2.5 sm:p-3 transition-colors focus-within:border-forest/50 focus-within:bg-[var(--surface)] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+          <div className="selection-panel bg-cream-secondary/60 hover:bg-cream-secondary/90 border border-forest/15 rounded-lg p-2.5 sm:p-3 transition-colors focus-within:border-forest/50 focus-within:bg-[var(--surface)] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
             <div className="flex items-center justify-between mb-1">
               <label
                 className="text-[11px] font-semibold uppercase tracking-wider text-[var(--forest-ink)] font-sans flex items-center gap-1.5"
@@ -168,7 +168,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
         </div>
 
         {/* IMMEDIATE CTA & CANDIDATE ACTION BAR (ABOVE THE FOLD) */}
-        <div className="rounded-lg bg-cream-secondary/50 border border-forest/20 p-3 sm:p-3.5 transition-all">
+        <div className="pair-summary rounded-lg bg-cream-secondary/50 border border-forest/20 p-3 sm:p-3.5 transition-all">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             {/* Left: Active Pair info & score */}
             <div className="space-y-0.5">
@@ -177,8 +177,8 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
                   <span className="w-1.5 h-1.5 rounded-full bg-forest mr-1"></span>
                   Configured Pair
                 </span>
-                <span className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-terracotta bg-terracotta/10 border border-terracotta/20 rounded font-mono">
-                  Repository TPS: {formatMetric(pairScoreData.score,3)} / 1.00 · {pairScoreData.tier}
+                <span className="priority-badge inline-flex items-center px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-terracotta bg-terracotta/10 border border-terracotta/20 rounded font-mono">
+                  {perspective === 'primer' ? 'Priority score' : 'Repository TPS'}: {formatMetric(pairScoreData.score,3)} / 1.00 · {pairScoreData.tier}
                 </span>
               </div>
               <h3 className="font-editorial text-lg sm:text-xl text-[var(--deep-forest-ink)] font-medium tracking-tight">
@@ -186,8 +186,8 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
               </h3>
               <p className="text-[11px] text-ink-muted font-sans leading-snug">
                 {perspective === 'primer'
-                  ? 'Predicted binding feasibility, 3D molecular dock simulations, and clinical relevance.'
-                  : 'AlphaFold-Multimer interface confidence (ipTM), binding affinity (ΔG), and interactive 3D structures.'}
+                  ? 'Predicted structure visualization, computational scores, and biological context.'
+                  : 'AlphaFold-Multimer interface confidence (ipTM), estimated binding free energy (ΔG), and predicted structures.'}
               </p>
             </div>
 
@@ -203,8 +203,8 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
               </button>
               <span className="text-[10px] text-ink-subtle font-sans mt-1 text-center sm:text-right">
                 {perspective === 'primer'
-                  ? 'Opens 3D model, binding story & interactive docking'
-                  : 'Opens 3D PDB viewer, docking metrics & contact map'}
+                  ? 'Inspect predicted structures and the evidence behind this pair'
+                  : 'Opens PDB viewer, computed metrics & coordinate-derived sequence'}
               </span>
             </div>
           </div>
@@ -213,7 +213,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
           <div className="flex flex-wrap items-center justify-between pt-2.5 mt-2.5 border-t border-forest/10 text-[11px] text-ink-subtle gap-2">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-forest"></span>
-              Pair ready for deep biophysical investigation
+              Pair configured. Structure availability is checked in analysis.
             </span>
             <button
               type="button"
@@ -243,7 +243,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* RECEPTOR INFO CARD */}
-          <div className="bg-[var(--surface)]/80 border border-forest/15 rounded-xl p-5 sm:p-6 shadow-sm transition-all">
+          <div className="science-card bg-[var(--surface)]/80 border border-forest/15 rounded-xl p-5 sm:p-6 shadow-sm transition-all">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-forest/10">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-terracotta bg-terracotta/10 px-2 py-0.5 rounded">
@@ -253,7 +253,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
                   {selectedReceptor.target}
                 </h4>
               </div>
-              <span className="text-xs font-mono text-ink-subtle bg-cream px-2 py-0.5 rounded border border-forest/10">
+              <span className="text-xs font-mono text-ink-muted bg-cream px-2 py-0.5 rounded border border-forest/10">
                 UniProt: {selectedReceptor.uniprot}
               </span>
             </div>
@@ -298,7 +298,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
           </div>
 
           {/* LIGAND INFO CARD */}
-          <div className="bg-[var(--surface)]/80 border border-forest/15 rounded-xl p-5 sm:p-6 shadow-sm transition-all">
+          <div className="science-card bg-[var(--surface)]/80 border border-forest/15 rounded-xl p-5 sm:p-6 shadow-sm transition-all">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-forest/10">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[var(--forest-ink)] bg-forest/10 px-2 py-0.5 rounded">
@@ -308,7 +308,7 @@ export const TargetSelectorView: React.FC<TargetSelectorViewProps> = ({
                   {selectedLigand.name}
                 </h4>
               </div>
-              <span className="text-xs font-mono text-ink-subtle bg-cream px-2 py-0.5 rounded border border-forest/10">
+              <span className="text-xs font-mono text-ink-muted bg-cream px-2 py-0.5 rounded border border-forest/10">
                 UniProt: {selectedLigand.uniprot}
               </span>
             </div>

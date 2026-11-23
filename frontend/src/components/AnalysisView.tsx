@@ -4,9 +4,10 @@ import { RECEPTOR_DATASET, getLigand, getPairEvidence } from '../data/dataset';
 import { fetchAiMechanisticInsights, AiMechanisticInsightsResponse, buildInteractionId, fetchExoRankInteraction, ExoRankInteraction } from '../services/api';
 import { MAX_PDB_BYTES, parsePdb, StructureData, SURFACE_ATOM_LIMIT } from '../lib/pdb';
 import { usePairStructure } from '../hooks/usePairStructure';
-import { MolecularViewer, ViewerControls } from './MolecularViewer';
+import { FIRST_CHAIN_COLOR, MolecularViewer, ViewerControls } from './MolecularViewer';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { profile, formatMetric, metricDelta } from '../lib/pairProfile';
+import { displayEvidenceText } from '../lib/text';
 
 interface AnalysisViewProps {
   perspective: PerspectiveMode;
@@ -83,6 +84,8 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
   useEffect(()=>{
     if(!showCompareModal)return;
     const before=document.activeElement as HTMLElement;
+    const beforeOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
     const dialog=document.querySelector<HTMLElement>('[role="dialog"]');
     const focusable=()=>Array.from(dialog?.querySelectorAll<HTMLElement>('button,select,a[href],input') || []).filter(el=>!el.hasAttribute('disabled'));
     focusable()[0]?.focus();
@@ -95,7 +98,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
       }
     };
     document.addEventListener('keydown',key);
-    return ()=>{document.removeEventListener('keydown',key);before?.focus();};
+    return ()=>{document.removeEventListener('keydown',key);document.body.style.overflow=beforeOverflow;before?.focus();};
   },[showCompareModal]);
   const handleResetCamera=()=>glviewerRef.current?.reset();
   const handleCenterCamera=()=>glviewerRef.current?.center();
@@ -122,7 +125,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
   const handleLoadPair=(value:string,key:string)=>{
     const rec=RECEPTOR_DATASET.find(r=>`${r.target} (${r.uniprot})`===value);
     if(rec)onSelectPair(rec.id,key.toLowerCase());
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
   };
   const handleRunAiAnalysis=async()=>{
     const id=interactionId, request=++aiRequestRef.current;
@@ -147,13 +150,13 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
   const renderFormattedSequence=()=>{
     const residues=structure?.parsed.residues[seqChain];
     if(!residues?.length)return <div>No protein sequence available from loaded coordinates.</div>;
-    return <div className="flex flex-wrap gap-0.5">{residues.map(residue=><button key={residue.id} title={`${residue.name} ${residue.id}, chain ${seqChain.trim()||'blank'}`} onClick={()=>setHighlight({chain:seqChain,residue:residue.id})} className={highlight?.chain===seqChain && highlight?.residue===residue.id ? 'seq-contact' : ''}>{residue.letter}</button>)}</div>;
+    return <div className="flex flex-wrap gap-0.5">{residues.map(residue=><button key={residue.id} title={`${residue.name} ${residue.id}, chain ${seqChain.trim()||'blank'}`} aria-label={`Highlight ${residue.name} ${residue.id}, chain ${seqChain.trim()||'blank'}`} onClick={()=>setHighlight({chain:seqChain,residue:residue.id})} className={highlight?.chain===seqChain && highlight?.residue===residue.id ? 'seq-contact' : ''}>{residue.letter}</button>)}</div>;
   };
 
   return (
     <div className="analysis-page min-h-screen flex flex-col bg-[var(--a-bg-fcf9f0)] text-[var(--a-text-1c1c16)] antialiased">
       {/* Top Navigation */}
-      <header className="w-full bg-[var(--a-bg-f3f0e8)]/95 backdrop-blur-md border-b border-[var(--a-border-2c3a2d)]/10 sticky top-0 z-40">
+      <header className="app-header w-full bg-[var(--a-bg-f3f0e8)]/95 backdrop-blur-md border-b border-[var(--a-border-2c3a2d)]/10 sticky top-0 z-40">
         <div className="min-h-16 py-2 gap-2 flex-wrap px-4 md:px-8 max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Back Button to Return to Target Selector */}
@@ -161,6 +164,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               onClick={onBackToSelector}
               className="mr-1 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono-code font-bold uppercase tracking-wider text-[var(--a-text-2c3a2d)] hover:text-[var(--a-text-a6543d)] bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/20 rounded-md shadow-xs hover:border-[var(--a-border-a6543d)] transition-all cursor-pointer"
               title="Return to Target Selector View"
+              aria-label="Return to Target Selector"
             >
               <span className="material-symbols-outlined text-[16px]">arrow_back</span>
               <span className="hidden md:inline">Selector</span>
@@ -182,7 +186,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2"><div className="flex items-center bg-[var(--a-bg-f6f4ea)] rounded p-1 border border-[var(--a-border-2c3a2d)]/15 shadow-xs">
+          <div className="header-controls flex flex-wrap items-center gap-2"><div role="group" aria-label="Scientific perspective" className="perspective-switch flex items-center bg-[var(--a-bg-f6f4ea)] rounded p-1 border border-[var(--a-border-2c3a2d)]/15 shadow-xs">
             <button
               className={`px-3 py-1 text-xs font-mono-code uppercase tracking-wider rounded transition-all cursor-pointer ${
                 perspective === 'primer'
@@ -190,6 +194,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   : 'text-[var(--a-text-53634b)] hover:text-[var(--a-text-2c3a2d)]'
               }`}
               onClick={() => onPerspectiveChange ? onPerspectiveChange('primer') : null}
+              aria-pressed={perspective === 'primer'}
             >
               Primer
             </button>
@@ -200,6 +205,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   : 'text-[var(--a-text-53634b)] hover:text-[var(--a-text-2c3a2d)]'
               }`}
               onClick={() => onPerspectiveChange ? onPerspectiveChange('deep') : null}
+              aria-pressed={perspective === 'deep'}
             >
               Deep Biocomputation
             </button>
@@ -208,16 +214,16 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
       </header>
 
       {/* Target & EV Candidate Pair Selectors Bar */}
-      <div className="w-full bg-[var(--a-bg-f6f4ea)] border-b border-[var(--a-border-2c3a2d)]/15 px-4 md:px-8 py-3">
+      <div className="analysis-selection-bar w-full bg-[var(--a-bg-f6f4ea)] border-b border-[var(--a-border-2c3a2d)]/15 px-4 md:px-8 py-3">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-3">
           {/* Target Receptor Selector */}
-          <div className="flex items-center gap-1.5 bg-[var(--surface)] px-3 py-1.5 rounded-lg border border-[var(--a-border-2c3a2d)]/25 shadow-xs">
+          <div className="science-panel flex flex-wrap sm:flex-nowrap items-center gap-1.5 min-w-0 max-w-full w-full sm:w-auto bg-[var(--surface)] px-3 py-1.5 rounded-lg border border-[var(--a-border-2c3a2d)]/25 shadow-xs">
             <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-2c3a2d)] tracking-wider flex items-center gap-1">
               <span className="material-symbols-outlined text-[15px] text-[var(--a-text-a6543d)]">adjust</span>
               TARGET RECEPTOR:
             </span>
             <select
-              className="text-xs font-mono-code font-bold bg-[var(--a-bg-fcf9f0)] border border-[var(--a-border-2c3a2d)]/25 rounded py-1 px-2.5 text-[var(--a-text-2c3a2d)] focus:ring-2 focus:ring-[var(--a-ring-2c3a2d)] shadow-xs cursor-pointer"
+              className="w-full sm:w-auto min-w-0 max-w-full text-xs font-mono-code font-bold bg-[var(--a-bg-fcf9f0)] border border-[var(--a-border-2c3a2d)]/25 rounded py-1 px-2.5 text-[var(--a-text-2c3a2d)] focus:ring-2 focus:ring-[var(--a-ring-2c3a2d)] shadow-xs cursor-pointer"
               aria-label="Target receptor"
               value={`${currentReceptorRecord.target} (${currentReceptorRecord.uniprot})`}
               onChange={(e) => handleSelectReceptorString(e.target.value)}
@@ -236,13 +242,13 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
           <span className="text-[var(--a-text-a6543d)] font-bold font-serif text-lg">×</span>
 
           {/* Exosomal Candidate Scaffold Selector */}
-          <div className="flex items-center gap-1.5 bg-[var(--surface)] px-3 py-1.5 rounded-lg border border-[var(--a-border-a6543d)]/35 shadow-xs">
+          <div className="science-panel flex flex-wrap sm:flex-nowrap items-center gap-1.5 min-w-0 max-w-full w-full sm:w-auto bg-[var(--surface)] px-3 py-1.5 rounded-lg border border-[var(--a-border-a6543d)]/35 shadow-xs">
             <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-53634b)] tracking-wider flex items-center gap-1">
               <span className="material-symbols-outlined text-[15px] text-[var(--a-text-a6543d)]">bubble_chart</span>
               EV CANDIDATE SCAFFOLD:
             </span>
             <select
-              className="text-xs font-mono-code font-bold bg-[var(--a-bg-fcf9f0)] border border-[var(--a-border-a6543d)]/30 rounded py-1 px-2.5 text-[var(--a-text-2c3a2d)] focus:ring-2 focus:ring-[var(--a-ring-a6543d)] shadow-xs cursor-pointer min-w-0 max-w-full"
+              className="w-full sm:w-auto text-xs font-mono-code font-bold bg-[var(--a-bg-fcf9f0)] border border-[var(--a-border-a6543d)]/30 rounded py-1 px-2.5 text-[var(--a-text-2c3a2d)] focus:ring-2 focus:ring-[var(--a-ring-a6543d)] shadow-xs cursor-pointer min-w-0 max-w-full"
               aria-label="EV candidate scaffold"
               value={activeEvKey}
               onChange={(e) => handleSelectEv(e.target.value)}
@@ -266,7 +272,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             id="compare-ev-scaffolds-btn"
             type="button"
             onClick={() => setShowCompareModal(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[var(--a-bg-2c3a2d)] hover:bg-[var(--a-bg-3e4f3f)] active:bg-[var(--a-bg-202b21)] text-[var(--a-text-fcf9f0)] font-mono-code text-xs font-bold uppercase tracking-wider shadow-xs transition-all cursor-pointer sm:ml-auto"
+            className="inline-flex flex-wrap max-w-full items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[var(--a-bg-2c3a2d)] hover:bg-[var(--a-bg-3e4f3f)] active:bg-[var(--a-bg-202b21)] text-[var(--a-text-fcf9f0)] font-mono-code text-xs font-bold uppercase tracking-wider shadow-xs transition-all cursor-pointer sm:ml-auto"
             title={`Compare ${activeEvKey} with other Group A candidate scaffolds for ${currentReceptorRecord.target}`}
           >
             <span className="material-symbols-outlined text-[17px] text-[var(--a-text-fcf9f0)]">compare_arrows</span>
@@ -281,7 +287,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
       {/* Main Content Area */}
       <main className="w-full flex-1 py-6 px-4 md:px-8 max-w-7xl mx-auto space-y-8">
         {/* Executive Summary Banner */}
-        <section className="bg-[var(--a-bg-ece7da)]/70 rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 md:p-6 shadow-xs relative overflow-hidden">
+        <section className="science-summary bg-[var(--a-bg-ece7da)]/70 rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 md:p-6 shadow-xs relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-8 space-y-2">
               <div className="flex flex-wrap items-center gap-2">
@@ -308,7 +314,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               </p>
             </div>
             <div className="lg:col-span-4 flex justify-end">
-              <div className="w-full lg:max-w-[280px] bg-[var(--surface)] rounded-lg p-4 border border-[var(--a-border-2c3a2d)]/20 shadow-xs space-y-2">
+              <div className="science-panel w-full lg:max-w-[280px] bg-[var(--surface)] rounded-lg p-4 border border-[var(--a-border-2c3a2d)]/20 shadow-xs space-y-2">
                 <div className="flex items-center justify-between border-b border-[var(--a-border-2c3a2d)]/10 pb-1.5 text-xs">
                   <span className="font-mono-code uppercase text-[var(--a-text-53634b)] font-semibold">Priority Score</span>
                   <span className="inline-flex items-center gap-1 font-mono-code font-bold">
@@ -327,13 +333,13 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="font-serif text-5xl text-[var(--a-text-a6543d)] font-medium leading-none">
-                    {activePairData ? formatMetric(activePairData.score, 2) : '—.——'}
+                    {activePairData ? formatMetric(activePairData.score, 2) : 'N/A'}
                   </span>
                   <span className="font-mono-code text-xs text-[var(--a-text-747872)]">/ 1.00 Composite</span>
                 </div>
                 <div className="w-full h-2 bg-[var(--a-bg-e5e2d9)] rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[var(--a-bg-a6543d)] rounded-full transition-all duration-500"
+                    className="score-fill-accent h-full bg-[var(--a-bg-a6543d)] rounded-full transition-all duration-500"
                     style={{ width: `${activePairData ? Math.round(activePairData.score * 100) : 0}%` }}
                   ></div>
                 </div>
@@ -362,16 +368,16 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-stretch">
             {/* Real Interactive 3Dmol.js Molecular Simulation Display Column */}
             <div className="lg:col-span-7 space-y-4 flex flex-col">
-              <div className="bg-[var(--a-bg-131713)] text-[var(--a-text-fcf9f0)] rounded-xl overflow-hidden border border-[var(--a-border-2c3a2d)]/30 shadow-md flex flex-col flex-1">
+              <div className="molecular-card bg-[var(--a-bg-131713)] text-[var(--a-text-fcf9f0)] rounded-xl overflow-hidden border border-[var(--a-border-2c3a2d)]/30 shadow-md flex flex-col flex-1">
                 {/* Viewer Top Metadata Bar with PDB Upload Action */}
-                <div className="p-3 px-4 bg-black/75 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[18px] text-[var(--a-text-65cbf3)]">view_in_ar</span>
-                    <span className="font-mono-code text-[11px] text-[var(--a-text-b8ccb7)] tracking-wide font-semibold truncate max-w-[280px]">
+                <div className="viewer-meta p-3 px-4 bg-black/75 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <div className="flex items-center gap-2 min-w-0 max-w-full">
+                    <span className="material-symbols-outlined shrink-0 text-[18px] text-[var(--a-text-65cbf3)]">view_in_ar</span>
+                    <span className="min-w-0 font-mono-code text-[11px] text-[var(--a-text-b8ccb7)] tracking-wide font-semibold truncate max-w-[280px]">
                       {activePairData.pdbId}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2 min-w-0 max-w-full">
                     <label className="cursor-pointer text-[10px] font-mono-code bg-[var(--a-bg-2c3a2d)] hover:bg-[var(--a-bg-3e4f3f)] text-[var(--a-text-fcf9f0)] px-2.5 py-1 rounded border border-white/20 transition-colors flex items-center gap-1 shadow-xs" title="Upload an actual AlphaFold resultant .pdb coordinate file">
                       <span className="material-symbols-outlined text-[12px]">upload_file</span>
                       <span>Upload PDB</span>
@@ -395,10 +401,10 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
 
                 {(uploadError || uploading) && <p role="status" className="p-2 text-xs text-[var(--a-text-fbdfb0)]">{uploadError || 'Reading PDB upload…'}</p>}
                 {/* Sub-bar: Dynamic Chain Identifiers & Real Coordinates Count */}
-                <div className="p-2.5 px-4 bg-[var(--a-bg-141e15)] border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono-code">
+                <div className="viewer-meta p-2.5 px-4 bg-[var(--a-bg-141e15)] border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono-code">
                   <div className="flex items-center gap-3">
                     <span className="flex items-center gap-1.5 text-[var(--a-text-a4baa1)]">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[var(--a-bg-3e4f3f)] border border-white/60"></span>
+                      <span className="w-2.5 h-2.5 rounded-full border border-white/60" style={{backgroundColor:FIRST_CHAIN_COLOR}}></span>
                       Chains: {structure?.parsed.chains.map(c=>c.trim()||'blank').join(', ') || 'Unavailable'}
                     </span>
                     <span className="flex items-center gap-1.5 text-[var(--a-text-e09681)]">
@@ -412,7 +418,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 {/* Real 3Dmol.js WebGL Viewport Container */}
-                <div className="relative w-full bg-[var(--a-bg-0a0f0a)] overflow-hidden flex-1 min-h-[490px]" ref={viewerContainerRef}>
+                <div className="molecular-viewport relative w-full bg-[var(--a-bg-0a0f0a)] overflow-hidden flex-1 min-h-[490px]" ref={viewerContainerRef}>
                   <MolecularViewer ref={glviewerRef} structure={structure} representation={representation} highlight={highlight}
                     onStatus={(status,message)=>setRenderState({id:interactionId,status,message})}/>
                   <div className="absolute top-3 right-3 pointer-events-none bg-black/75 text-white/90 font-mono-code text-[10px] px-2.5 py-1.5 rounded border border-white/15 max-w-[220px]">
@@ -431,9 +437,9 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 {/* Real 3Dmol.js Interactive Controls Toolbar */}
-                <div className="p-2.5 px-4 bg-black/80 border-t border-white/10 flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono-code">
+                <div className="viewer-toolbar p-2.5 px-4 bg-black/80 border-t border-white/10 flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono-code">
                   {/* Camera & View Controls */}
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex flex-wrap items-center gap-1.5">
                     <span className="text-white/50 text-[10px] mr-1 hidden sm:inline">CAMERA:</span>
                     <button
                       className="px-2.5 py-1 rounded text-[11px] bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center gap-1 cursor-pointer"
@@ -466,7 +472,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </div>
 
                   {/* Representation Switcher (Calls Real 3Dmol Methods) */}
-                  <div className="flex items-center gap-1.5">
+                  <div role="group" aria-label="Molecular representation" className="flex flex-wrap items-center gap-1.5">
                     <span className="text-white/50 text-[10px] mr-1">ACTIVE REPRESENTATION:</span>
                     <button
                       className={`px-2.5 py-1 rounded text-[11px] transition-all cursor-pointer ${
@@ -475,6 +481,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                           : 'bg-white/10 hover:bg-white/20 text-white/80 hover:text-white'
                       }`}
                       onClick={() => handleSetRepresentation('cartoon')}
+                      aria-pressed={representation === 'cartoon'}
                     >
                       Cartoon / Ribbon
                     </button>
@@ -485,6 +492,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                           : 'bg-white/10 hover:bg-white/20 text-white/80 hover:text-white'
                       }`}
                       onClick={() => handleSetRepresentation('surface')}
+                      aria-pressed={representation === 'surface'}
                     >
                       Surface
                     </button>
@@ -495,6 +503,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                           : 'bg-white/10 hover:bg-white/20 text-white/80 hover:text-white'
                       }`}
                       onClick={() => handleSetRepresentation('stick')}
+                      aria-pressed={representation === 'stick'}
                     >
                       Ball & Stick
                     </button>
@@ -506,7 +515,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             {/* Right Column: Scores, Interpretation & Primary Structure Panel */}
             <div className="lg:col-span-5 space-y-4">
               {/* Multi-Layer Biophysical Assessment */}
-              <div className="bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 space-y-3 shadow-xs">
+              <div className="science-card bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 space-y-3 shadow-xs">
                 <div className="flex items-center justify-between pb-1 border-b border-[var(--a-border-2c3a2d)]/10">
                   <div>
                     <h3 className="font-serif text-lg text-[var(--a-text-2c3a2d)] font-semibold">Multi-Layer Biophysical Assessment</h3>
@@ -516,7 +525,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 {/* Layer 1 */}
-                <div className="bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
+                <div className="science-panel bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
                   <div className="flex items-start justify-between">
                     <div>
                       <span className="text-xs font-bold text-[var(--a-text-2c3a2d)]">1. Structural Confidence</span>
@@ -525,19 +534,19 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </p>
                     </div>
                     <span className="font-mono-code text-sm font-bold text-[var(--a-text-2c3a2d)]">
-                      {activePairData ? formatMetric(activePairData.ipTM, 2) : '—.——'}
+                      {activePairData ? formatMetric(activePairData.ipTM, 2) : 'N/A'}
                     </span>
                   </div>
                   <div className="w-full h-2 bg-[var(--a-bg-ebe8df)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--a-bg-2c3a2d)] rounded-full transition-all duration-500"
+                      className="score-fill-sage h-full bg-[var(--a-bg-2c3a2d)] rounded-full transition-all duration-500"
                       style={{ width: `${activePairData ? Math.round(activePairData.ipTM * 100) : 0}%` }}
                     ></div>
                   </div>
                 </div>
 
                 {/* Layer 2 */}
-                <div className="bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
+                <div className="science-panel bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
                   <div className="flex items-start justify-between">
                     <div>
                       <span className="text-xs font-bold text-[var(--a-text-2c3a2d)]">2. Binding Affinity & Energetics</span>
@@ -546,19 +555,19 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </p>
                     </div>
                     <span className="font-mono-code text-sm font-bold text-[var(--a-text-a6543d)]">
-                      {activePairData ? formatMetric(activePairData.affinityScore) : '—.——'}
+                      {activePairData ? formatMetric(activePairData.affinityScore) : 'N/A'}
                     </span>
                   </div>
                   <div className="w-full h-2 bg-[var(--a-bg-ebe8df)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--a-bg-a6543d)] rounded-full transition-all duration-500"
+                      className="score-fill-accent h-full bg-[var(--a-bg-a6543d)] rounded-full transition-all duration-500"
                       style={{ width: `${activePairData ? Math.round((activePairData.affinityScore ?? 0) * 100) : 0}%` }}
                     ></div>
                   </div>
                 </div>
 
                 {/* Layer 3 */}
-                <div className="bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
+                <div className="science-panel bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
                   <div className="flex items-start justify-between">
                     <div>
                       <span className="text-xs font-bold text-[var(--a-text-2c3a2d)]">3. Literature & Co-Expression</span>
@@ -567,19 +576,19 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </p>
                     </div>
                     <span className="font-mono-code text-sm font-bold text-[var(--a-text-53634b)]">
-                      {activePairData ? formatMetric(activePairData.literature, 2) : '—.——'}
+                      {activePairData ? formatMetric(activePairData.literature, 2) : 'N/A'}
                     </span>
                   </div>
                   <div className="w-full h-2 bg-[var(--a-bg-ebe8df)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--a-bg-53634b)] rounded-full transition-all duration-500"
+                      className="score-fill-sage h-full bg-[var(--a-bg-53634b)] rounded-full transition-all duration-500"
                       style={{ width: `${activePairData ? Math.round(activePairData.literature * 100) : 0}%` }}
                     ></div>
                   </div>
                 </div>
 
                 {/* Layer 4 */}
-                <div className="bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
+                <div className="science-panel bg-[var(--surface)] p-3.5 rounded-lg border border-[var(--a-border-2c3a2d)]/10 space-y-1">
                   <div className="flex items-start justify-between">
                     <div>
                       <span className="text-xs font-bold text-[var(--a-text-2c3a2d)]">4. Biological EV Compatibility</span>
@@ -593,7 +602,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </div>
                   <div className="w-full h-2 bg-[var(--a-bg-ebe8df)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--a-bg-2c3a2d)] rounded-full transition-all duration-500"
+                      className="score-fill-sage h-full bg-[var(--a-bg-2c3a2d)] rounded-full transition-all duration-500"
                       style={{ width: `${activePairData ? Math.round(activePairData.bioCompat * 100) : 0}%` }}
                     ></div>
                   </div>
@@ -601,7 +610,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               </div>
 
               {/* Biocomputation Mode Interpretation Card */}
-              <div className="p-4 bg-[var(--a-bg-ece7da)] rounded-xl border-l-4 border-[var(--a-border-2c3a2d)] border border-[var(--a-border-2c3a2d)]/10 shadow-xs">
+              <div className="science-card p-4 bg-[var(--a-bg-ece7da)] rounded-xl border-l-4 border-[var(--a-border-2c3a2d)] border border-[var(--a-border-2c3a2d)]/10 shadow-xs">
                 <div className="flex items-center gap-2 text-[var(--a-text-2c3a2d)] font-mono-code text-xs font-bold uppercase tracking-wider mb-1.5">
                   <span className="material-symbols-outlined text-[18px]">psychology</span>
                   <span>{perspective === 'primer' ? 'PRIMER MODE' : 'BIOCOMPUTATION MODE'}: {currentReceptorRecord.target.split('/')[0].trim()} × {activeEvKey}</span>
@@ -613,8 +622,8 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </p>
               </div>
 
-              {/* PRODIGY Interface Composition — real values from PRODIGY INFO.xlsx (via backend) */}
-              <div className="bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 overflow-hidden shadow-xs">
+              {/* PRODIGY Interface Composition: real values from PRODIGY INFO.xlsx (via backend) */}
+              <div className="science-card bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 overflow-hidden shadow-xs">
                 <div className="p-3.5 px-4 bg-[var(--a-bg-ece7da)]/60 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-[var(--a-text-2c3a2d)] text-[20px]">hub</span>
@@ -627,7 +636,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </div>
                   <span className="text-[11px] font-mono-code text-[var(--a-text-53634b)] px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15">
                     {backendData?.prodigy?.available
-                      ? `Total contacts: ${backendData.prodigy.intermolecular_contacts ?? '—'}`
+                      ? `Total contacts: ${backendData.prodigy.intermolecular_contacts ?? 'N/A'}`
                       : 'Not available'}
                   </span>
                 </div>
@@ -644,21 +653,21 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                         ['Apolar–polar', backendData.prodigy.contacts.apolar_polar],
                         ['Apolar–apolar', backendData.prodigy.contacts.apolar_apolar],
                       ] as [string, number | null][]).map(([label, val]) => (
-                        <div key={label} className="bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
+                        <div key={label} className="science-panel bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
                           <div className="text-[10px] font-mono-code text-[var(--a-text-747872)] uppercase tracking-wide">{label}</div>
-                          <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{val ?? '—'}</div>
+                          <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{val ?? 'N/A'}</div>
                         </div>
                       ))}
                     </div>
                     <div className="text-[10px] font-mono-code text-[var(--a-text-747872)] uppercase tracking-wide mb-2 mt-4">Non-Interacting Surface (NIS)</div>
                     <div className="grid grid-cols-2 gap-2.5">
-                      <div className="bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
+                      <div className="science-panel bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
                         <div className="text-[10px] font-mono-code text-[var(--a-text-747872)] uppercase tracking-wide">% Apolar NIS residues</div>
-                        <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{backendData.prodigy.NIS.apolar ?? '—'}</div>
+                        <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{backendData.prodigy.NIS.apolar ?? 'N/A'}</div>
                       </div>
-                      <div className="bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
+                      <div className="science-panel bg-[var(--surface)] rounded-lg border border-[var(--a-border-2c3a2d)]/10 px-3 py-2">
                         <div className="text-[10px] font-mono-code text-[var(--a-text-747872)] uppercase tracking-wide">% Charged NIS residues</div>
-                        <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{backendData.prodigy.NIS.charged ?? '—'}</div>
+                        <div className="text-lg font-serif text-[var(--a-text-2c3a2d)] font-semibold">{backendData.prodigy.NIS.charged ?? 'N/A'}</div>
                       </div>
                     </div>
                     <p className="text-[11px] text-[var(--a-text-747872)] mt-3">
@@ -674,13 +683,13 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             </div>
           </div>
 
-          {/* Protein Sequence — full width directly below the 3D viewer */}
+          {/* Protein Sequence: full width directly below the 3D viewer */}
           <div className="w-full">
               {/* Primary Structure & Contacts / Protein Sequence Panel */}
-              <div className="bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 overflow-hidden shadow-xs">
+              <div className="science-card bg-[var(--a-bg-f6f4ea)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 overflow-hidden shadow-xs">
                 <div
                   role="button" tabIndex={0} aria-expanded={seqOpen} onKeyDown={event=>{if(event.key==='Enter' || event.key===' '){event.preventDefault();setSeqOpen(!seqOpen);}}}
-                  className="p-3.5 px-4 flex items-center justify-between cursor-pointer select-none bg-[var(--a-bg-ece7da)]/60 hover:bg-[var(--a-bg-ece7da)] transition-colors"
+                  className="p-3.5 px-4 flex flex-wrap items-center justify-between gap-2 cursor-pointer select-none bg-[var(--a-bg-ece7da)]/60 hover:bg-[var(--a-bg-ece7da)] transition-colors"
                   onClick={() => setSeqOpen(!seqOpen)}
                 >
                   <div className="flex items-center gap-2">
@@ -727,13 +736,13 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </button>
                     </div>
 
-                    <div className="bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 rounded-lg p-3 overflow-x-auto max-h-[130px] overflow-y-auto">
+                    <div className="science-panel bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 rounded-lg p-3 overflow-x-auto max-h-[130px] overflow-y-auto">
                       <div className="font-mono-code text-xs leading-relaxed text-[var(--a-text-1c1c16)] select-text">
                         {renderFormattedSequence()}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] font-mono-code text-[var(--a-text-747872)]">
+                    <div className="flex flex-wrap gap-2 items-center justify-between text-[11px] font-mono-code text-[var(--a-text-747872)]">
                       <span className="flex items-center gap-1.5">
                         <span className="w-2.5 h-2.5 rounded bg-[var(--a-bg-a6543d)]/25 border border-[var(--a-border-a6543d)] inline-block"></span>
                         <span>
@@ -761,7 +770,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            <div className="lg:col-span-7 bg-[var(--a-bg-f6f4ea)] p-5 rounded-xl border border-[var(--a-border-2c3a2d)]/15 space-y-3">
+            <div className="science-card lg:col-span-7 bg-[var(--a-bg-f6f4ea)] p-5 rounded-xl border border-[var(--a-border-2c3a2d)]/15 space-y-3">
               <div className="flex items-center gap-2 border-b border-[var(--a-border-2c3a2d)]/10 pb-2">
                 <span className="material-symbols-outlined text-[20px] text-[var(--a-text-2c3a2d)]">verified</span>
                 <h3 className="font-serif text-base text-[var(--a-text-2c3a2d)] font-semibold">Why This Candidate? (Computational Strengths)</h3>
@@ -782,7 +791,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-[var(--a-bg-a6543d)]/5 p-5 rounded-xl border-2 border-[var(--a-border-a6543d)]/30 flex flex-col justify-between space-y-3">
+            <div className="science-card lg:col-span-5 bg-[var(--a-bg-a6543d)]/5 p-5 rounded-xl border-2 border-[var(--a-border-a6543d)]/30 flex flex-col justify-between space-y-3">
               <div>
                 <div className="flex items-center gap-2 border-b border-[var(--a-border-a6543d)]/20 pb-2 text-[var(--a-text-a6543d)]">
                   <span className="material-symbols-outlined text-[20px]">warning</span>
@@ -830,10 +839,11 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="inline-flex rounded-lg border border-[var(--a-border-2c3a2d)]/20 p-0.5 bg-[var(--a-bg-f6f4ea)] text-xs font-mono-code">
+              <div role="group" aria-label="Comparison view" className="science-panel inline-flex rounded-lg border border-[var(--a-border-2c3a2d)]/20 p-0.5 bg-[var(--a-bg-f6f4ea)] text-xs font-mono-code">
                 <button
                   type="button"
                   onClick={() => setCompareTab('1v1')}
+                  aria-pressed={compareTab === '1v1'}
                   className={`px-3 py-1 rounded-md transition-all cursor-pointer font-bold ${
                     compareTab === '1v1'
                       ? 'bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] shadow-xs'
@@ -845,6 +855,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 <button
                   type="button"
                   onClick={() => setCompareTab('matrix')}
+                  aria-pressed={compareTab === 'matrix'}
                   className={`px-3 py-1 rounded-md transition-all cursor-pointer font-bold ${
                     compareTab === 'matrix'
                       ? 'bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] shadow-xs'
@@ -858,7 +869,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
           </div>
 
           {/* Quick Scaffold Selector Pills */}
-          <div className="bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/15 rounded-xl p-3.5 space-y-2">
+          <div className="science-card bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/15 rounded-xl p-3.5 space-y-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-53634b)] flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[15px] text-[var(--a-text-a6543d)]">tune</span>
@@ -885,7 +896,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                         setCompareTab('1v1');
                       }
                     }}
-                    className={`px-3 py-2 rounded-lg border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                    className={`max-w-full min-w-0 px-3 py-2 rounded-lg border text-left transition-all cursor-pointer flex flex-wrap sm:flex-nowrap items-center gap-2.5 ${
                       isCurrentActive
                         ? 'bg-[var(--a-bg-a6543d)]/15 border-[var(--a-border-a6543d)] text-[var(--a-text-2c3a2d)] ring-1 ring-[var(--a-ring-a6543d)]/40'
                         : isSelectedCompare
@@ -918,14 +929,14 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
           {compareTab === '1v1' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Primary Active Scaffold Card */}
-              <div className="bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-a6543d)]/40 p-5 md:p-6 shadow-sm space-y-5 relative">
-                <div className="flex items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-4">
-                  <div>
+              <div className="science-card bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-a6543d)]/40 p-5 md:p-6 shadow-sm space-y-5 relative">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-4">
+                  <div className="min-w-0 flex-1 basis-[220px]">
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[var(--a-bg-a6543d)] text-white font-mono-code text-[11px] font-bold uppercase tracking-wider mb-2">
                       <span className="material-symbols-outlined text-[13px]">view_in_ar</span>
                       SELECTED RECEPTOR–SCAFFOLD PAIR
                     </div>
-                    <h3 className="font-serif text-2xl text-[var(--a-text-2c3a2d)] flex items-center gap-2">
+                    <h3 className="font-serif text-2xl text-[var(--a-text-2c3a2d)] flex flex-wrap items-center gap-2">
                       <span>{activePairData.evProtein.name}</span>
                       <span className="font-mono-code text-sm font-bold text-[var(--a-text-a6543d)]">({activePairData.evProtein.key})</span>
                     </h3>
@@ -933,7 +944,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       UniProt: {activePairData.evProtein.uniprot} · Gene: {activePairData.evProtein.gene} · {activePairData.evProtein.topology}
                     </p>
                   </div>
-                  <div className="text-right">
+                  <div className="shrink-0 max-w-[140px] text-right">
                     <span className="font-mono-code text-[10px] uppercase text-[var(--a-text-747872)] block">Composite Score</span>
                     <span className="font-serif text-3xl font-bold text-[var(--a-text-a6543d)]">{formatMetric(activePairData.score, 2)}</span>
                     <span className="block font-mono-code text-[10px] text-[var(--a-text-53634b)] uppercase font-bold">{activePairData.tier}</span>
@@ -942,27 +953,27 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
 
                 {/* Biophysical Metrics Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Binding Free Energy</span>
                     <span className="font-mono-code text-base font-bold text-[var(--a-text-a6543d)]">{formatMetric(activePairData.deltaG, 1)} kcal/mol</span>
                   </div>
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Dissociation Constant (Kd)</span>
                     <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.kd)} nM</span>
                   </div>
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Interface Confidence (ipTM)</span>
                     <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.ipTM, 2)}</span>
                   </div>
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Buried Interface Area</span>
                     <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.interfaceArea, 0)} Å²</span>
                   </div>
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Contacts (H-Bonds / Salt)</span>
                     <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{activePairData.hbonds} / {activePairData.saltBridges}</span>
                   </div>
-                  <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Vesicle Topology</span>
                     <span className="font-mono-code text-xs font-bold text-[var(--a-text-2c3a2d)] truncate block" title={activePairData.evProtein.topology}>
                       {activePairData.evProtein.topology}
@@ -971,7 +982,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 {/* Structural Summary */}
-                <div className="space-y-2 bg-[var(--a-bg-fcf9f0)] p-4 rounded-xl border border-[var(--a-border-2c3a2d)]/10">
+                <div className="science-panel space-y-2 bg-[var(--a-bg-fcf9f0)] p-4 rounded-xl border border-[var(--a-border-2c3a2d)]/10">
                   <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-2c3a2d)] block">Structural Orientation & Rationale:</span>
                   <p className="text-xs text-[var(--a-text-434842)] leading-relaxed font-serif">
                     {activePairData.summary}
@@ -979,7 +990,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 <div className="pt-2">
-                  <div className="text-xs font-mono-code text-[var(--a-text-747872)] flex items-center justify-between">
+                  <div className="text-xs font-mono-code text-[var(--a-text-747872)] flex flex-wrap gap-2 items-center justify-between">
                     <span>Contact Residues: {activePairData.contactResidueCount} positions</span>
                     <span>Mass: {activePairData.evProtein.mass}</span>
                   </div>
@@ -987,19 +998,20 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               </div>
 
               {/* Comparative Scaffold Card */}
-              <div className="bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-2c3a2d)]/30 p-5 md:p-6 shadow-sm space-y-5 relative flex flex-col justify-between">
+              <div className="science-card bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-2c3a2d)]/30 p-5 md:p-6 shadow-sm space-y-5 relative flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-4">
-                    <div className="space-y-1">
+                  <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-4">
+                    <div className="min-w-0 flex-1 basis-[220px] space-y-1">
                       <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] font-mono-code text-[11px] font-bold uppercase tracking-wider mb-2">
                         <span className="material-symbols-outlined text-[13px]">compare</span>
                         COMPARATIVE BENCHMARK CANDIDATE
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 min-w-0 max-w-full">
                         <select
+                          aria-label="Comparison candidate scaffold"
                           value={comparePairData.evProtein.key}
                           onChange={(e) => setCompareEvKey(e.target.value)}
-                          className="font-serif text-xl font-bold text-[var(--a-text-2c3a2d)] bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/20 rounded-lg px-2.5 py-1 cursor-pointer"
+                          className="w-full min-w-0 max-w-full font-serif text-xl font-bold text-[var(--a-text-2c3a2d)] bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/20 rounded-lg px-2.5 py-1 cursor-pointer"
                         >
                           {currentReceptorRecord.groupA
                             .filter((k) => k !== activeEvKey)
@@ -1018,7 +1030,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </p>
                     </div>
 
-                    <div className="text-right">
+                    <div className="shrink-0 max-w-[140px] text-right">
                       <span className="font-mono-code text-[10px] uppercase text-[var(--a-text-747872)] block">Composite Score</span>
                       <div className="flex items-center justify-end gap-1.5">
                         <span className="font-serif text-3xl font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.score, 2)}</span>
@@ -1044,7 +1056,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
 
                   {/* Comparative Biophysical Metrics Grid with Differential Badges */}
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Binding Free Energy</span>
                       <div className="flex items-baseline gap-1">
                         <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.deltaG, 1)} kcal</span>
@@ -1065,7 +1077,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </span>
                     </div>
 
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Dissociation Constant (Kd)</span>
                       <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.kd)} nM</span>
                       <span className="text-[10px] font-mono-code text-[var(--a-text-747872)] block mt-1">
@@ -1074,7 +1086,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </span>
                     </div>
 
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Interface Confidence (ipTM)</span>
                       <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.ipTM, 2)}</span>
                       <span
@@ -1088,7 +1100,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </span>
                     </div>
 
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Buried Interface Area</span>
                       <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.interfaceArea, 0)} Å²</span>
                       <span className="text-[10px] font-mono-code text-[var(--a-text-747872)] block mt-1">
@@ -1097,7 +1109,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </span>
                     </div>
 
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Contacts (H-Bonds / Salt)</span>
                       <span className="font-mono-code text-base font-bold text-[var(--a-text-2c3a2d)]">{comparePairData.hbonds} / {comparePairData.saltBridges}</span>
                       <span className="text-[10px] font-mono-code text-[var(--a-text-747872)] block mt-1">
@@ -1105,7 +1117,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       </span>
                     </div>
 
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-3 rounded-lg border border-[var(--a-border-2c3a2d)]/10">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Vesicle Topology</span>
                       <span className="font-mono-code text-xs font-bold text-[var(--a-text-2c3a2d)] truncate block" title={comparePairData.evProtein.topology}>
                         {comparePairData.evProtein.topology}
@@ -1117,7 +1129,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </div>
 
                   {/* Structural Summary */}
-                  <div className="space-y-2 bg-[var(--a-bg-fcf9f0)] p-4 rounded-xl border border-[var(--a-border-2c3a2d)]/10">
+                  <div className="science-panel space-y-2 bg-[var(--a-bg-fcf9f0)] p-4 rounded-xl border border-[var(--a-border-2c3a2d)]/10">
                     <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-2c3a2d)] block">Structural Orientation & Rationale:</span>
                     <p className="text-xs text-[var(--a-text-434842)] leading-relaxed font-serif">
                       {comparePairData.summary}
@@ -1134,7 +1146,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                       // Scroll to viewer smoothly
                       const viewerEl = document.getElementById('interactive-3d-section');
                       if (viewerEl) {
-                        viewerEl.scrollIntoView({ behavior: 'smooth' });
+                        viewerEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
                       }
                     }}
                     className="w-full py-2.5 px-4 rounded-lg bg-[var(--a-bg-2c3a2d)] hover:bg-[var(--a-bg-3e4f3f)] active:bg-[var(--a-bg-202b21)] text-[var(--a-text-fcf9f0)] font-mono-code text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 cursor-pointer transition-all"
@@ -1149,8 +1161,8 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
 
           {/* Tab 2: Complete Group A Benchmarking Matrix for Current Receptor */}
           {compareTab === 'matrix' && (
-            <div className="overflow-x-auto rounded-xl border border-[var(--a-border-2c3a2d)]/15 bg-[var(--surface)] shadow-xs">
-              <table className="w-full text-left border-collapse text-xs font-mono-code">
+            <div className="science-card overflow-x-auto rounded-xl border border-[var(--a-border-2c3a2d)]/15 bg-[var(--surface)] shadow-xs">
+              <table className="w-full min-w-[760px] text-left border-collapse text-xs font-mono-code">
                 <thead>
                   <tr className="border-b border-[var(--a-border-2c3a2d)]/15 bg-[var(--a-bg-ece7da)]/70 text-[var(--a-text-53634b)] uppercase">
                     <th className="py-3 px-4 font-semibold">Curated EV Scaffold</th>
@@ -1264,8 +1276,8 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             <span className="font-mono-code text-xs text-[var(--a-text-747872)]">CLICK ROW TO LOAD 3D STRUCTURE</span>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-[var(--a-border-2c3a2d)]/15 bg-[var(--surface)] shadow-xs">
-            <table className="w-full text-left border-collapse text-xs font-mono-code">
+          <div className="science-card overflow-x-auto rounded-xl border border-[var(--a-border-2c3a2d)]/15 bg-[var(--surface)] shadow-xs">
+            <table className="w-full min-w-[760px] text-left border-collapse text-xs font-mono-code">
               <thead>
                 <tr className="border-b border-[var(--a-border-2c3a2d)]/15 bg-[var(--a-bg-ece7da)]/70 text-[var(--a-text-53634b)] uppercase">
                   <th className="py-3 px-4 font-semibold">Heterodimer Pair</th>
@@ -1344,7 +1356,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             </div>
           </div>
 
-          <div className="bg-[var(--surface)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 shadow-xs space-y-5">
+          <div className="science-card bg-[var(--surface)] rounded-xl border border-[var(--a-border-2c3a2d)]/15 p-5 shadow-xs space-y-5">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[var(--a-border-2c3a2d)]/10 pb-4">
               <div>
                 <h4 className="font-serif text-lg text-[var(--a-text-2c3a2d)] flex items-center gap-2">
@@ -1400,67 +1412,67 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </span>
                 </div>
 
-                <div className="bg-[var(--a-bg-fcf9f0)] p-4 rounded-lg border border-[var(--a-border-2c3a2d)]/15">
+                <div className="science-panel bg-[var(--a-bg-fcf9f0)] p-4 rounded-lg border border-[var(--a-border-2c3a2d)]/15">
                   <h5 className="font-mono-code text-xs uppercase tracking-wider font-bold text-[var(--a-text-a6543d)] mb-1">
                     Executive Viability Rationale
                   </h5>
                   <p className="text-sm font-serif text-[var(--a-text-2c3a2d)] leading-relaxed">
-                    {aiAnalysis.executiveSummary}
+                    {displayEvidenceText(aiAnalysis.executiveSummary)}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 space-y-2">
+                  <div className="science-panel p-4 rounded-lg bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 space-y-2">
                     <h5 className="font-mono-code text-xs uppercase tracking-wider font-bold text-[var(--a-text-2c3a2d)] flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-[16px] text-[var(--a-text-53634b)]">hub</span>
                       <span>Interface & Electrostatic Features</span>
                     </h5>
                     <ul className="space-y-1.5 text-xs text-[var(--a-text-434842)] list-disc list-inside leading-relaxed font-sans">
                       {aiAnalysis.bindingInterfaceAnalysis.map((item, idx) => (
-                        <li key={idx}>{item}</li>
+                        <li key={idx}>{displayEvidenceText(item)}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 space-y-2">
+                  <div className="science-panel p-4 rounded-lg bg-[var(--surface)] border border-[var(--a-border-2c3a2d)]/15 space-y-2">
                     <h5 className="font-mono-code text-xs uppercase tracking-wider font-bold text-[var(--a-text-2c3a2d)] flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-[16px] text-[var(--a-text-53634b)]">adjust</span>
                       <span>Vesicle Membrane Presentation</span>
                     </h5>
                     <p className="text-xs text-[var(--a-text-434842)] leading-relaxed font-sans">
-                      {aiAnalysis.vesiclePresentation}
+                      {displayEvidenceText(aiAnalysis.vesiclePresentation)}
                     </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg bg-[var(--a-bg-fff8f6)] border border-[var(--a-border-a6543d)]/20 space-y-2">
+                  <div className="science-panel p-4 rounded-lg bg-[var(--a-bg-fff8f6)] border border-[var(--a-border-a6543d)]/20 space-y-2">
                     <h5 className="font-mono-code text-xs uppercase tracking-wider font-bold text-[var(--a-text-a6543d)] flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-[16px] text-[var(--a-text-a6543d)]">warning</span>
                       <span>Biophysical Liabilities & Off-Target Risks</span>
                     </h5>
                     <ul className="space-y-1.5 text-xs text-[var(--a-text-434842)] list-disc list-inside leading-relaxed font-sans">
                       {aiAnalysis.potentialLiabilities.map((item, idx) => (
-                        <li key={idx}>{item}</li>
+                        <li key={idx}>{displayEvidenceText(item)}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-[var(--a-bg-f4f7f2)] border border-[var(--a-border-53634b)]/25 space-y-2">
+                  <div className="science-panel p-4 rounded-lg bg-[var(--a-bg-f4f7f2)] border border-[var(--a-border-53634b)]/25 space-y-2">
                     <h5 className="font-mono-code text-xs uppercase tracking-wider font-bold text-[var(--a-text-2c3a2d)] flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-[16px] text-[var(--a-text-53634b)]">build_circle</span>
                       <span>Recommended Mutagenesis & Linker Optimization</span>
                     </h5>
                     <ul className="space-y-1.5 text-xs text-[var(--a-text-434842)] list-disc list-inside leading-relaxed font-sans">
                       {aiAnalysis.engineeringRecommendations.map((item, idx) => (
-                        <li key={idx}>{item}</li>
+                        <li key={idx}>{displayEvidenceText(item)}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="p-6 text-center border-2 border-dashed border-[var(--a-border-2c3a2d)]/15 rounded-lg bg-[var(--a-bg-fcf9f0)]/60 space-y-2">
+              <div className="science-panel p-6 text-center border-2 border-dashed border-[var(--a-border-2c3a2d)]/15 rounded-lg bg-[var(--a-bg-fcf9f0)]/60 space-y-2">
                 <span className="material-symbols-outlined text-3xl text-[var(--a-text-53634b)]/60">query_stats</span>
                 <p className="font-serif text-base text-[var(--a-text-2c3a2d)]">
                   AI Mechanistic Review
@@ -1502,15 +1514,15 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
             if (e.target === e.currentTarget) setShowCompareModal(false);
           }}
         >
-          <div role="dialog" aria-modal="true" aria-label="EV Candidate Scaffold Comparator" className="bg-[var(--a-bg-fcf9f0)] border-2 border-[var(--a-border-2c3a2d)]/30 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden my-auto animate-fadeIn">
+          <div role="dialog" aria-modal="true" aria-labelledby="comparator-title" className="comparison-dialog bg-[var(--a-bg-fcf9f0)] border-2 border-[var(--a-border-2c3a2d)]/30 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden my-auto animate-fadeIn">
             {/* Modal Header */}
-            <div className="bg-[var(--a-bg-ece7da)] border-b border-[var(--a-border-2c3a2d)]/20 px-5 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] flex items-center justify-center">
+            <div className="bg-[var(--a-bg-ece7da)] border-b border-[var(--a-border-2c3a2d)]/20 px-5 py-4 flex items-center justify-between gap-3 shrink-0">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <div className="w-9 h-9 shrink-0 rounded-lg bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] flex items-center justify-center">
                   <span className="material-symbols-outlined text-[20px]">compare_arrows</span>
                 </div>
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-[var(--a-text-2c3a2d)]">
+                <div className="min-w-0">
+                  <h3 id="comparator-title" className="font-serif text-xl font-bold text-[var(--a-text-2c3a2d)]">
                     EV Candidate Scaffold Comparator
                   </h3>
                   <p className="font-mono-code text-xs text-[var(--a-text-53634b)]">
@@ -1521,17 +1533,18 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               <button
                 type="button"
                 onClick={() => setShowCompareModal(false)}
-                className="w-8 h-8 rounded-lg bg-[var(--surface)]/60 hover:bg-[var(--surface)] text-[var(--a-text-2c3a2d)] border border-[var(--a-border-2c3a2d)]/20 flex items-center justify-center cursor-pointer transition-all"
+                className="w-8 h-8 shrink-0 rounded-lg bg-[var(--surface)]/60 hover:bg-[var(--surface)] text-[var(--a-text-2c3a2d)] border border-[var(--a-border-2c3a2d)]/20 flex items-center justify-center cursor-pointer transition-all"
                 title="Close Comparator"
+                aria-label="Close comparator"
               >
                 <span className="material-symbols-outlined text-[18px]">close</span>
               </button>
             </div>
 
             {/* Modal Body */}
-            <div className="p-5 md:p-6 overflow-y-auto space-y-6 flex-1">
+            <div className="p-5 md:p-6 overflow-y-auto overscroll-contain space-y-6 flex-1 min-h-0">
               {/* Quick Switch Comparison Candidate Strip */}
-              <div className="bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/15 rounded-xl p-3 space-y-2">
+              <div className="science-card bg-[var(--a-bg-f6f4ea)] border border-[var(--a-border-2c3a2d)]/15 rounded-xl p-3 space-y-2">
                 <span className="font-mono-code text-[11px] font-bold uppercase text-[var(--a-text-53634b)] block">
                   Select Scaffold to Compare with Active Lead ({activeEvKey}):
                 </span>
@@ -1547,7 +1560,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                         onClick={() => {
                           if (!isAct) setCompareEvKey(sym);
                         }}
-                        className={`px-3 py-1.5 rounded-lg border text-xs font-mono-code transition-all cursor-pointer flex items-center gap-2 ${
+                        className={`max-w-full min-w-0 px-3 py-1.5 rounded-lg border text-xs font-mono-code transition-all cursor-pointer flex flex-wrap sm:flex-nowrap items-center gap-2 ${
                           isAct
                             ? 'bg-[var(--a-bg-a6543d)]/15 border-[var(--a-border-a6543d)] text-[var(--a-text-2c3a2d)] font-bold'
                             : isComp
@@ -1556,7 +1569,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                         }`}
                       >
                         <span>{sym}</span>
-                        <span className={`text-[10px] ${isComp ? 'text-[var(--a-text-e5e3d7)]' : 'text-[var(--a-text-747872)]'}`}>
+                        <span title={cat?.name || sym} className={`min-w-0 truncate text-[10px] ${isComp ? 'text-[var(--a-text-e5e3d7)]' : 'text-[var(--a-text-747872)]'}`}>
                           {cat?.name || sym}
                         </span>
                         {isAct && (
@@ -1573,9 +1586,9 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
               {/* Side-by-Side Comparison Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Active Lead */}
-                <div className="bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-a6543d)]/40 p-5 shadow-xs space-y-4">
-                  <div className="flex items-start justify-between border-b border-[var(--a-border-2c3a2d)]/10 pb-3">
-                    <div>
+                <div className="science-card bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-a6543d)]/40 p-5 shadow-xs space-y-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-3">
+                    <div className="min-w-0 flex-1 basis-[180px]">
                       <span className="px-2 py-0.5 rounded bg-[var(--a-bg-a6543d)] text-white font-mono-code text-[10px] font-bold uppercase block w-max mb-1">
                         Active Lead
                       </span>
@@ -1586,7 +1599,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                         {activePairData.evProtein.topology} · {activePairData.evProtein.mass}
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="shrink-0 max-w-[140px] text-right">
                       <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Score</span>
                       <span className="font-serif text-2xl font-bold text-[var(--a-text-a6543d)]">
                         {formatMetric(activePairData.score, 2)}
@@ -1595,19 +1608,19 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono-code">
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                       <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">ΔG Binding</span>
                       <span className="font-bold text-[var(--a-text-a6543d)]">{formatMetric(activePairData.deltaG, 1)} kcal</span>
                     </div>
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                       <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">Kd Affinity</span>
                       <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.kd)} nM</span>
                     </div>
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                       <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">ipTM Confidence</span>
                       <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.ipTM, 2)}</span>
                     </div>
-                    <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                    <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                       <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">Buried Area</span>
                       <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(activePairData.interfaceArea, 0)} Å²</span>
                     </div>
@@ -1619,10 +1632,10 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                 </div>
 
                 {/* Comparator */}
-                <div className="bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-2c3a2d)]/30 p-5 shadow-xs space-y-4 flex flex-col justify-between">
+                <div className="science-card bg-[var(--surface)] rounded-xl border-2 border-[var(--a-border-2c3a2d)]/30 p-5 shadow-xs space-y-4 flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="flex items-start justify-between border-b border-[var(--a-border-2c3a2d)]/10 pb-3">
-                      <div>
+                    <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--a-border-2c3a2d)]/10 pb-3">
+                      <div className="min-w-0 flex-1 basis-[180px]">
                         <span className="px-2 py-0.5 rounded bg-[var(--a-bg-2c3a2d)] text-[var(--a-text-fcf9f0)] font-mono-code text-[10px] font-bold uppercase block w-max mb-1">
                           Benchmark Candidate
                         </span>
@@ -1633,7 +1646,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                           {comparePairData.evProtein.topology} · {comparePairData.evProtein.mass}
                         </p>
                       </div>
-                      <div className="text-right">
+                      <div className="shrink-0 max-w-[140px] text-right">
                         <span className="font-mono-code text-[10px] text-[var(--a-text-747872)] uppercase block">Score</span>
                         <span className="font-serif text-2xl font-bold text-[var(--a-text-2c3a2d)]">
                           {formatMetric(comparePairData.score, 2)}
@@ -1642,7 +1655,7 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-xs font-mono-code">
-                      <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                      <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                         <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">ΔG Binding</span>
                         <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.deltaG, 1)} kcal</span>
                         <span className="text-[10px] font-bold block mt-0.5 text-[var(--a-text-a6543d)]">
@@ -1650,21 +1663,21 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({perspective,onPerspec
                             : `ΔΔG = +${metricDelta(comparePairData.deltaG,activePairData.deltaG,1)} (less negative prediction)`}
                         </span>
                       </div>
-                      <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                      <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                         <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">Kd Affinity</span>
                         <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.kd)} nM</span>
                         <span className="text-[10px] text-[var(--a-text-747872)] block mt-0.5">
                           {comparePairData.kd == null || activePairData.kd == null ? 'Not calculated' : comparePairData.kd < activePairData.kd ? 'Lower predicted Kd' : 'Higher predicted Kd'}
                         </span>
                       </div>
-                      <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                      <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                         <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">ipTM Confidence</span>
                         <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.ipTM, 2)}</span>
                         <span className="text-[10px] text-[var(--a-text-747872)] block mt-0.5">
                           {comparePairData.ipTM == null || activePairData.ipTM == null ? 'Not calculated' : comparePairData.ipTM < activePairData.ipTM ? '+ higher' : 'lower'}
                         </span>
                       </div>
-                      <div className="bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
+                      <div className="science-panel bg-[var(--a-bg-f6f4ea)] p-2.5 rounded border border-[var(--a-border-2c3a2d)]/10">
                         <span className="text-[10px] text-[var(--a-text-747872)] uppercase block">Buried Area</span>
                         <span className="font-bold text-[var(--a-text-2c3a2d)]">{formatMetric(comparePairData.interfaceArea, 0)} Å²</span>
                         <span className="text-[10px] text-[var(--a-text-747872)] block mt-0.5">

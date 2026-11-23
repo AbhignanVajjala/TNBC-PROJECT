@@ -1,6 +1,7 @@
 import evidence from "./evidence.json";
 import type { ExoRankInteraction } from "../services/api";
 import { ReceptorItem, LigandItem, PairScoreData } from '../types';
+import { displayEvidenceText } from '../lib/text';
 
 export const RECEPTOR_DATASET: ReceptorItem[] = [
   {
@@ -642,7 +643,7 @@ export function getLigand(id: string): LigandItem {
   const item = Object.values(EVIDENCE).find(r => r.candidate_protein.toLowerCase() === key);
   const missing = 'Metadata unavailable';
   return {id:key, name:id.toUpperCase(), uniprot:item?.biology.uniprot_id || missing,
-    primer:{what:item?.biology.reason || missing, howEV:item?.biology.localization || missing, metaphor:missing},
+    primer:{what:displayEvidenceText(item?.biology.reason || missing), howEV:item?.biology.localization || missing, metaphor:missing},
     deep:{scaffoldType:item?.biology.surface_feasibility || missing, topology:item?.biology.localization || missing,
       exosomeDensity:missing, docking:missing}};
 }

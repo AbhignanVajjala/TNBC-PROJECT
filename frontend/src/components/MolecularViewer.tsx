@@ -9,7 +9,8 @@ interface Props {
   onStatus: (status:'loading'|'ready'|'error', message?:string)=>void;
   highlight?: {chain:string; residue:string} | null;
 }
-const COLORS = [0x3E4F3F, 0xC77A58, 0x8FA085, 0xC7AD82, 0x65CBF3];
+export const FIRST_CHAIN_COLOR = '#A4BAA1';
+const COLORS = [0xA4BAA1, 0xC77A58, 0x8FA085, 0xC7AD82, 0x65CBF3];
 
 // 3Dmol 2.5.5 has no public destroy method. Capture its synchronous global
 // listener registrations, then restore the native methods before returning.
@@ -26,7 +27,7 @@ function createOwnedViewer(library: typeof import('3dmol'), element: HTMLDivElem
     restore.push(() => { if (own) Object.defineProperty(target, 'addEventListener', own); else delete (target as any).addEventListener; });
   }
   let viewer: GLViewer;
-  try { viewer = library.createViewer(element, {backgroundColor:'#0a0f0a', antialias:true}); }
+  try { viewer = library.createViewer(element, {backgroundColor:'#0B0D10', antialias:true}); }
   catch (error) { removers.forEach(remove => remove()); throw error; }
   finally { restore.forEach(fn => fn()); }
   return {viewer, destroy:() => {
@@ -101,5 +102,5 @@ export const MolecularViewer = forwardRef<ViewerControls, Props>(function Molecu
     } catch {status.current('error','3D rendering unavailable for this representation.');}
     return () => {cancelled=true; v.removeAllSurfaces();};
   }, [ready, structure, representation, highlight]);
-  return <div id="gmol-viewer" ref={container} className="absolute inset-0" aria-label="Interactive molecular structure"/>;
+  return <div id="gmol-viewer" ref={container} className="absolute inset-0" role="region" aria-label="Interactive molecular structure"/>;
 });
